@@ -12,15 +12,3 @@
 #Check to see if file is valid, compare row 1 values to ensure
 #Takes standard output BoM from Inventor, scans and counts each part
 
-
-import tkinter as tk
-
-
-
-window = tk.Tk()
-greeting = tk.Label(text="Hello, Tkinter")
-greeting.pack()
-okaybutton = tk.Button(text="Ok")
-okaybutton.pack()
-
-window.mainloop()
