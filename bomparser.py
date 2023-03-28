@@ -25,9 +25,9 @@ from tkinter.messagebox import showinfo
 def main():
     #Define window
     window = tk.Tk()
-    window.title=('BoM Parser - ALPHA 0.0.1')
+    window.title('BoM Parser - ALPHA 0.0.1')
     window.resizable(False, False)
-    window.geometry("300x150")
+    window.geometry("500x150")
 
     #Widgets
     greeting = ttk.Label(text="Please choose a file")
