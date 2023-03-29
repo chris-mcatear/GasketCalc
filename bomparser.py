@@ -21,13 +21,19 @@ import tkinter.ttk as ttk       #this is for themed widgets
 from tkinter import *
 from tkinter import filedialog as fd
 from tkinter.messagebox import showinfo
+from tkinter import messagebox
 
 def main():
+
+    
     #Define window
     window = tk.Tk()
     window.title('BoM Parser - ALPHA 0.0.1')
     window.resizable(False, False)
     window.geometry("500x150")
+    
+    #Defining Style of Window
+    #style = darkstyle(window)
 
     #Widgets
     greeting = ttk.Label(text="Please choose a file")
@@ -35,6 +41,7 @@ def main():
     calculatebutton = ttk.Button(text="Calculate")
     filepathtext = ttk.Label(text="FILE PATH PLACEHOLDER")
     filepathframe = ttk.LabelFrame(window, text="Choose a file")
+    retrybutton = ttk.Button(text="Retry", command=browsefunc)
 
     #Content Layout in window
     greeting.pack()
@@ -46,10 +53,18 @@ def main():
     #Window Remains on Screen
     window.mainloop()
 
+
 def browsefunc():
     filetypes = ("Excel File", ".xlsx .xls")
     filename = fd.askopenfilename(filetypes=filetypes)
-    showinfo(title="Selected", message = filename)
+    if filename == "":
+        messagebox.askretrycancel(title="ERROR", message="Please select a file.")
+        if answer == True:
+            browsefunc
+        else:
+            pass
+    else:
+        showinfo(title="Selected", message = filename)
     return filename
     pass
 
