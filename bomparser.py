@@ -41,7 +41,7 @@ def main():
     calculatebutton = ttk.Button(text="Calculate")
     filepathtext = ttk.Label(text="FILE PATH PLACEHOLDER")
     filepathframe = ttk.LabelFrame(window, text="Choose a file")
-    retrybutton = ttk.Button(text="Retry", command=browsefunc)
+    #retrybutton = ttk.Button(text="Retry", command=browsefunc)
 
     #Content Layout in window
     greeting.pack()
@@ -55,18 +55,25 @@ def main():
 
 
 def browsefunc():
-    filetypes = ("Excel File", ".xlsx .xls")
-    filename = fd.askopenfilename(filetypes=filetypes)
+    filetypes = (("Excel File", "*.xlsx"),)
+    filename = fd.askopenfilename(title="Select a file", filetypes=filetypes)
+    #I NEED TO LOOP THIS IF STATEMENT WITH AN ERROR TO GET IT TO TRY AND PULL INFO AGAIN
     if filename == "":
-        messagebox.askretrycancel(title="ERROR", message="Please select a file.")
-        if answer == True:
-            browsefunc
+        if messagebox.askretrycancel(title="Error", message="Please select a file.") == True:
+            filename = fd.askopenfilename(filetypes=filetypes)
         else:
             pass
     else:
         showinfo(title="Selected", message = filename)
     return filename
     pass
+
+# def retrywindow():
+#     if messagebox.askretrycancel(title="ERROR", message="Please select a file.") == True: 
+#         showinfo(title="lol fuck this", message="Why doesn't this work")
+#         browsefunc
+#     else:
+#         pass
 
 
 def calculatefunc():
