@@ -35,20 +35,20 @@ def main():
     #Defining Style of Window
     #style = darkstyle(window)
 
-    #Widgets
-    greeting = ttk.Label(text="Please choose a file")
-    browserbutton = ttk.Button(text="Browse", command=browsefunc)
-    calculatebutton = ttk.Button(text="Calculate")
-    filepathtext = ttk.Label(text="FILE PATH PLACEHOLDER")
+    #Widgets    
     filepathframe = ttk.LabelFrame(window, text="Choose a file")
+    greeting = ttk.Label(text="Please choose a file")
+    browserbutton = ttk.Button(filepathframe, text="Browse", command=browsefunc)
+    calculatebutton = ttk.Button(text="Calculate")
+    filepathtext = ttk.Label(filepathframe, text="")
     #retrybutton = ttk.Button(text="Retry", command=browsefunc)
 
     #Content Layout in window
-    greeting.pack()
-    filepathtext.pack()
-    filepathframe.pack(fill="both", expand="yes")
-    browserbutton.pack()
-    calculatebutton.pack()
+    greeting.grid(row=0, column=0, padx=5, pady=5)
+    filepathframe.grid(row=1, column=0, padx=10, pady=5)
+    filepathtext.grid(row=0, column=0, padx=5, pady=5)
+    browserbutton.grid(row=1, column=1, padx=10, pady=5)
+    calculatebutton.grid(row=1, column=3, padx=10, pady=5)
 
     #Window Remains on Screen
     window.mainloop()
