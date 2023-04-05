@@ -23,11 +23,15 @@ from tkinter import filedialog as fd
 from tkinter.messagebox import showinfo
 from tkinter import messagebox
 
-def main():
+
 
     
-    #Define window
-    window = tk.Tk()
+#Define window
+window = tk.Tk()
+
+def main():
+ 
+    
     window.title('BoM Parser - ALPHA 0.0.1')
     window.resizable(False, False)
     window.geometry("500x150")
@@ -39,8 +43,8 @@ def main():
     filepathframe = ttk.LabelFrame(window, text="Choose a file")
     greeting = ttk.Label(text="Please choose a file")
     browserbutton = ttk.Button(filepathframe, text="Browse", command=browsefunc)
-    calculatebutton = ttk.Button(text="Calculate")
-    filepathtext = ttk.Label(filepathframe, text="")
+    calculatebutton = ttk.Button(text="Calculate", command=calculatefunc)
+    filepathtext = ttk.Label(filepathframe, text="filename")
     #retrybutton = ttk.Button(text="Retry", command=browsefunc)
 
     #Content Layout in window
@@ -51,32 +55,32 @@ def main():
     calculatebutton.grid(row=1, column=3, padx=10, pady=5)
 
     #Window Remains on Screen
+    window.protocol("WM_DELETE_WINDOW", on_closing)
     window.mainloop()
 
 
 def browsefunc():
     filetypes = (("Excel File", "*.xlsx"),)
     filename = fd.askopenfilename(title="Select a file", filetypes=filetypes)
-    #I NEED TO LOOP THIS IF STATEMENT WITH AN ERROR TO GET IT TO TRY AND PULL INFO AGAIN
     if filename == "":
-        if messagebox.askretrycancel(title="Error", message="Please select a file.") == True:
-            filename = fd.askopenfilename(filetypes=filetypes)
-        else:
-            pass
+        pass
+        # if messagebox.askretrycancel(title="Error", message="Please select a file.") == True:
+        #     filename = fd.askopenfilename(filetypes=filetypes)
+        # else:
+        #     pass
     else:
         showinfo(title="Selected", message = filename)
     return filename
-    pass
-
-# def retrywindow():
-#     if messagebox.askretrycancel(title="ERROR", message="Please select a file.") == True: 
-#         showinfo(title="lol fuck this", message="Why doesn't this work")
-#         browsefunc
-#     else:
-#         pass
 
 
-def calculatefunc():
-    pass
+def on_closing():
+    if messagebox.askokcancel("Quit", "Do you want to quit?"):
+        window.destroy()
+        
+
+def calculatefunc(filename):
+    """Usage: calculatefunc(input) / Will take input of file path and pass to pandas to interperetation, pandas to return details to display() function for displaying information."""
+    if len(filename) > 0:
+        showinfo(title="calcfunc window", message = filename)
 
 main()
