@@ -22,20 +22,17 @@ from tkinter import *
 from tkinter import filedialog as fd
 from tkinter.messagebox import showinfo
 from tkinter import messagebox
-
-
-
+from pandclass import ExcelToPandas
     
 #Define window
 window = tk.Tk()
 
-def main():
+def user_window():
  
-    
     window.title('BoM Parser - ALPHA 0.0.1')
     window.resizable(False, False)
     window.geometry("500x150")
-    
+
     #Defining Style of Window
     #style = darkstyle(window)
 
@@ -43,8 +40,8 @@ def main():
     filepathframe = ttk.LabelFrame(window, text="Choose a file")
     greeting = ttk.Label(text="Please choose a file")
     browserbutton = ttk.Button(filepathframe, text="Browse", command=browsefunc)
-    calculatebutton = ttk.Button(text="Calculate", command=calculatefunc)
-    filepathtext = ttk.Label(filepathframe, text="filename")
+    calculatebutton = ttk.Button(text="Calculate", command= lambda: calculatefunc(etop.filepath))
+    filepathtext = ttk.Label(filepathframe, textvariable=etop.filepath)
     #retrybutton = ttk.Button(text="Retry", command=browsefunc)
 
     #Content Layout in window
@@ -55,8 +52,11 @@ def main():
     calculatebutton.grid(row=1, column=3, padx=10, pady=5)
 
     #Window Remains on Screen
-    window.protocol("WM_DELETE_WINDOW", on_closing)
+    #window.protocol("WM_DELETE_WINDOW", on_closing)
     window.mainloop()
+
+
+etop = ExcelToPandas()
 
 
 def browsefunc():
@@ -70,17 +70,22 @@ def browsefunc():
         #     pass
     else:
         showinfo(title="Selected", message = filename)
-    return filename
+        etop.filepath = filename
+        #showinfo(title="ExcelToPandas File Path", message=etop.filepath)
 
 
 def on_closing():
     if messagebox.askokcancel("Quit", "Do you want to quit?"):
         window.destroy()
-        
+
 
 def calculatefunc(filename):
     """Usage: calculatefunc(input) / Will take input of file path and pass to pandas to interperetation, pandas to return details to display() function for displaying information."""
     if len(filename) > 0:
-        showinfo(title="calcfunc window", message = filename)
+        etop.pandasfileapprove()
 
-main()
+    #showinfo(message=etop.filepath)
+
+
+user_window()
+
