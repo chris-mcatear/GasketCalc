@@ -68,21 +68,17 @@ def on_closing():
         window.destroy()
 
 
-def calculatefunc(filename):
+def calculatefunc():
     """Usage: calculatefunc(input) / Will take input of file path and pass to pandas to interperetation, pandas to return details to display() function for displaying information."""
-    if len(filename) > 0:
-        if etop.pandasfileapprove() == True:
-            print("Calc func success")
-            # etop.gasket_series()
-        else:
-            print("Calc func Failure")   
+    etop.gasket_series()
+    
 
 
 # Widgets    
 filepathframe = ttk.LabelFrame(window, text="Filepath: ")
 greeting = ttk.Label(text="Please choose a file")
 browserbutton = ttk.Button(text="Browse", command=browsefunc)
-calculatebutton = ttk.Button(text="Calculate", command= lambda: calculatefunc(etop.filepath))
+calculatebutton = ttk.Button(text="Calculate", command=calculatefunc)
 filepathtext = ttk.Label(filepathframe, text="Awaiting file selection.", width=100)
 file_approved = ttk.Label(text="Awaiting file selection.")
 # retrybutton = ttk.Button(text="Retry", command=browsefunc)
