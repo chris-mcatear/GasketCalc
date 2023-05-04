@@ -19,23 +19,35 @@ class ExcelToPandas():
             excel_valid = [False, False, False, False]
             file_validator = ["Part Number", "Unit QTY", "QTY", "Description"]
             excel_df = pd.read_excel(self.filepath)
-            print(excel_df.head())
-            for i in range(len(excel_df.columns)):
-                if excel_df.columns[i] != file_validator[i]:
-                    excel_valid[i] = False
-                    print("File Not Valid")
-                else: 
-                    print("File confirmed Valid")
-                    excel_valid[i] = True
-            print(excel_valid)
-            # excel_df_column_titles = excel_df.columns
-            # print(f"colums index: {excel_df.index}")
-            # print(f"column titles: {excel_df_column_titles}")
-            #expected_column_title = ["Part Number", "Unit QTY", "QTY", "Description"]
-            # for column in excel_df_column_titles:
-            #     if excel_df_column_titles[column] != expected_column_title[column]:
-            #         print("Error, file headers don't match")
-            #TODO: Verify the excel file chosen by user by matching column headers ?? idk if this is the best way to go about it 
+            if len(excel_df.columns) == len(file_validator):
+                print(excel_df.head())
+                for i in range(len(excel_df.columns)):
+                    if excel_df.columns[i] != file_validator[i]:
+                        excel_valid[i] = False
+                        print("File Not Valid")
+                    else: 
+                        # print("File confirmed Valid")
+                        excel_valid[i] = True
+                print(f"Validation: {excel_valid}")
+                if excel_valid == [True, True, True, True]:
+                    return True
+                else:
+                    return False
+            else:
+                messagebox.askretrycancel(title="File Invalid", message="Chosen file is not a valid Inventor BOM Export, please try again")
+                return False
+
             
-    
-    #def print
+            
+    # def gasket_series(self):
+        # print("Starting Gasket Count")
+        # excel_df = pd.read_excel(self.filepath)
+        # gasket_locations = []
+        # excel_df.dropna()
+        # df2 = excel_df[excel_df['Part Number'].str.contains("GASKET")]
+        # print(df2)
+            
+            
+        # # gasket_dict = {}
+
+        # # print(len(excel_df[excel_df['Part Number'] == "GASKET"]))

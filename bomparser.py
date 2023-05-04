@@ -26,38 +26,14 @@ from pandclass import ExcelToPandas
     
 #Define window
 window = tk.Tk()
+window.title('BoM Parser - ALPHA 0.0.1')
+# window.resizable(False, False)
+window.geometry("500x150")
 
-def user_window():
- 
-    window.title('BoM Parser - ALPHA 0.0.1')
-    window.resizable(False, False)
-    window.geometry("500x150")
-
-    #Defining Style of Window
-    #style = darkstyle(window)
-
-    #Widgets    
-    filepathframe = ttk.LabelFrame(window, text="Choose a file")
-    greeting = ttk.Label(text="Please choose a file")
-    browserbutton = ttk.Button(filepathframe, text="Browse", command=browsefunc)
-    calculatebutton = ttk.Button(text="Calculate", command= lambda: calculatefunc(etop.filepath))
-    filepathtext = ttk.Label(filepathframe, textvariable=etop.filepath)
-    #retrybutton = ttk.Button(text="Retry", command=browsefunc)
-
-    #Content Layout in window
-    greeting.grid(row=0, column=0, padx=5, pady=5)
-    filepathframe.grid(row=1, column=0, padx=10, pady=5)
-    filepathtext.grid(row=0, column=0, padx=5, pady=5)
-    browserbutton.grid(row=1, column=1, padx=10, pady=5)
-    calculatebutton.grid(row=1, column=3, padx=10, pady=5)
-
-    #Window Remains on Screen
-    #window.protocol("WM_DELETE_WINDOW", on_closing)
-    window.mainloop()
-
+#Defining Style of Window
+#style = darkstyle(window)
 
 etop = ExcelToPandas()
-
 
 def browsefunc():
     filetypes = (("Excel File", "*.xlsx"),)
@@ -69,8 +45,9 @@ def browsefunc():
         # else:
         #     pass
     else:
-        showinfo(title="Selected", message = filename)
+        # showinfo(title="Selected", message = filename)
         etop.filepath = filename
+        filepathtext.config(text=filename)
         #showinfo(title="ExcelToPandas File Path", message=etop.filepath)
 
 
@@ -82,10 +59,29 @@ def on_closing():
 def calculatefunc(filename):
     """Usage: calculatefunc(input) / Will take input of file path and pass to pandas to interperetation, pandas to return details to display() function for displaying information."""
     if len(filename) > 0:
-        etop.pandasfileapprove()
+        if etop.pandasfileapprove() == True:
+            print("Calc func success")
+            etop.gasket_series()
+        else:
+            print("Calc func Failure")   
 
-    #showinfo(message=etop.filepath)
 
+# Widgets    
+filepathframe = ttk.LabelFrame(window, text="Choose a file")
+greeting = ttk.Label(text="Please choose a file")
+browserbutton = ttk.Button(filepathframe, text="Browse", command=browsefunc)
+calculatebutton = ttk.Button(text="Calculate", command= lambda: calculatefunc(etop.filepath))
+filepathtext = ttk.Label(filepathframe, text="test")
+# retrybutton = ttk.Button(text="Retry", command=browsefunc)
 
-user_window()
+# Content Layout in window
+greeting.grid(row=0, column=0, padx=5, pady=5)
+filepathframe.grid(row=1, column=0, padx=10, pady=5)
+filepathtext.grid(row=0, column=0, padx=5, pady=5)
+browserbutton.grid(row=1, column=1, padx=10, pady=5)
+calculatebutton.grid(row=1, column=3, padx=10, pady=5)
 
+#Window Remains on Screen
+#window.protocol("WM_DELETE_WINDOW", on_closing)
+
+window.mainloop()
