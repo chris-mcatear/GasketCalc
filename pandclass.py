@@ -20,21 +20,21 @@ class ExcelToPandas():
             file_validator = ["Part Number", "Unit QTY", "QTY", "Description"]
             excel_df = pd.read_excel(self.filepath)
             if len(excel_df.columns) == len(file_validator):
-                print(excel_df.head())
+                # print(excel_df.head())
                 for i in range(len(excel_df.columns)):
                     if excel_df.columns[i] != file_validator[i]:
                         excel_valid[i] = False
-                        print("File Not Valid")
+                        # print("File Not Valid")
                     else: 
                         # print("File confirmed Valid")
                         excel_valid[i] = True
-                print(f"Validation: {excel_valid}")
+                # print(f"Validation: {excel_valid}")
                 if excel_valid == [True, True, True, True]:
                     return True
                 else:
                     return False
             else:
-                messagebox.askretrycancel(title="File Invalid", message="Chosen file is not a valid Inventor BOM Export, please try again")
+                # messagebox.askretrycancel(title="File Invalid", message="Chosen file is not a valid Inventor BOM Export, please try again")
                 return False
 
             

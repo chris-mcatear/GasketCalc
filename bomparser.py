@@ -28,7 +28,8 @@ from pandclass import ExcelToPandas
 window = tk.Tk()
 window.title('BoM Parser - ALPHA 0.0.1')
 # window.resizable(False, False)
-window.geometry("500x150")
+# window.geometry("1000x150")
+window.minsize(width=750, height=150)
 
 #Defining Style of Window
 #style = darkstyle(window)
@@ -49,6 +50,17 @@ def browsefunc():
         etop.filepath = filename
         filepathtext.config(text=filename)
         #showinfo(title="ExcelToPandas File Path", message=etop.filepath)
+        if len(filename) > 0:
+            if etop.pandasfileapprove() == True:
+                # print("Calc func success")
+                file_approved.config(text="File Valid!", foreground="#11a713")
+                calculatebutton.config(state=NORMAL)
+                # etop.gasket_series()
+            else:
+                # print("Calc func Failure")
+                file_approved.config(text="File Not Valid!", foreground="#f00")
+                calculatebutton.config(state=DISABLED)
+                # messagebox.askretrycancel(title="File Invalid", message="Chosen file is not a valid Inventor BOM Export, please try again")
 
 
 def on_closing():
@@ -61,25 +73,29 @@ def calculatefunc(filename):
     if len(filename) > 0:
         if etop.pandasfileapprove() == True:
             print("Calc func success")
-            etop.gasket_series()
+            # etop.gasket_series()
         else:
             print("Calc func Failure")   
 
 
 # Widgets    
-filepathframe = ttk.LabelFrame(window, text="Choose a file")
+filepathframe = ttk.LabelFrame(window, text="Filepath: ")
 greeting = ttk.Label(text="Please choose a file")
-browserbutton = ttk.Button(filepathframe, text="Browse", command=browsefunc)
+browserbutton = ttk.Button(text="Browse", command=browsefunc)
 calculatebutton = ttk.Button(text="Calculate", command= lambda: calculatefunc(etop.filepath))
-filepathtext = ttk.Label(filepathframe, text="test")
+filepathtext = ttk.Label(filepathframe, text="Awaiting file selection.", width=100)
+file_approved = ttk.Label(text="Awaiting file selection.")
 # retrybutton = ttk.Button(text="Retry", command=browsefunc)
+# filepath = tk.Text(filepathtext, width=100, height=100)
+# filepath.grid(row=0, column=0)
 
 # Content Layout in window
 greeting.grid(row=0, column=0, padx=5, pady=5)
-filepathframe.grid(row=1, column=0, padx=10, pady=5)
-filepathtext.grid(row=0, column=0, padx=5, pady=5)
-browserbutton.grid(row=1, column=1, padx=10, pady=5)
-calculatebutton.grid(row=1, column=3, padx=10, pady=5)
+filepathframe.grid(row=1, column=1, padx=10, pady=5)
+filepathtext.grid(row=1, column=2, padx=5, pady=5)
+browserbutton.grid(row=1, column=0, padx=10, pady=5)
+calculatebutton.grid(row=2, column=0, padx=10, pady=5)
+file_approved.grid(row=2, column=1)
 
 #Window Remains on Screen
 #window.protocol("WM_DELETE_WINDOW", on_closing)
