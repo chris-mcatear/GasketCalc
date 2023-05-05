@@ -62,7 +62,6 @@ class ExcelToPandas():
         
         
         one_hundred_fifty_pound = gasket_values[gasket_values["Part Number"].str.contains("#150", na=False)]
-        # print(three_hundred_pound)
         # FROM HERE OUT ONE HUNDRED FIFTY POUND FLANGE VAR WLL BE SHORTENED TO OHFP_*NAME* E.G. OHFP_ONE_INCH
         ohfp_half_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Part Number"].str.contains("1/2in", na=False)]
         ohfp_three_quart_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Part Number"].str.contains("3/4in", na=False)]
@@ -70,9 +69,12 @@ class ExcelToPandas():
         ohfp_one_half_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Part Number"].str.contains("1 1/2in", na=False)]
         ohfp_two_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Part Number"].str.contains("2in", na=False)]
         ohfp_three_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Part Number"].str.contains("3in", na=False)]
+        ohfp_four_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Part Number"].str.contains("4in", na=False)]
         ohfp_six_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Part Number"].str.contains("6in", na=False)]
         ohfp_eight_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Part Number"].str.contains("8in", na=False)]
         ohfp_ten_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Part Number"].str.contains("10in", na=False)]
         ohfp_twelve_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Part Number"].str.contains("12in", na=False)]
         
-        print(one_hundred_fifty_pound)
+        print(ohfp_two_inch)
+        
+        # CHANGE ALL ABOVE TO READ DESC FOR SPLITTING SIZE - THIS NEEDS TO BE DONE TO INCORPORATE CNAF GASKETS 
