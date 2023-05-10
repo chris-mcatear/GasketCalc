@@ -8,7 +8,7 @@ import pandas as pd
 
 class ExcelToPandas():
     def __init__(self):
-        self.filepath = "error"
+        self.filepath = "C:/Users/McAteach/OneDrive - Howden Group Ltd/Coding/BoM Counter/SCW42299-SBAG-01.xlsx"
         
         
     def pandasfileapprove(self):
@@ -49,32 +49,43 @@ class ExcelToPandas():
         three_hundred_pound = gasket_values[gasket_values["Part Number"].str.contains("#300", na=False)]
         # print(three_hundred_pound)
         # FROM HERE OUT THREE HUNDRED POUND FLANGE VAR WLL BE SHORTENED TO THP_*NAME* E.G. THP_ONE_INCH
-        thp_half_inch = three_hundred_pound[three_hundred_pound["Part Number"].str.contains("1/2in", na=False)]
-        thp_three_quart_inch = three_hundred_pound[three_hundred_pound["Part Number"].str.contains("3/4in", na=False)]
-        thp_one_inch = three_hundred_pound[three_hundred_pound["Part Number"].str.contains("1in", na=False)]
-        thp_one_half_inch = three_hundred_pound[three_hundred_pound["Part Number"].str.contains("1 1/2in", na=False)]
-        thp_two_inch = three_hundred_pound[three_hundred_pound["Part Number"].str.contains("2in", na=False)]
-        thp_three_inch = three_hundred_pound[three_hundred_pound["Part Number"].str.contains("3in", na=False)]
-        thp_six_inch = three_hundred_pound[three_hundred_pound["Part Number"].str.contains("6in", na=False)]
-        thp_eight_inch = three_hundred_pound[three_hundred_pound["Part Number"].str.contains("8in", na=False)]
-        thp_ten_inch = three_hundred_pound[three_hundred_pound["Part Number"].str.contains("10in", na=False)]
-        thp_twelve_inch = three_hundred_pound[three_hundred_pound["Part Number"].str.contains("12in", na=False)]
+        thp_half_inch = three_hundred_pound[three_hundred_pound["Description"].str.contains("1/2'", na=False)]
+        thp_three_quart_inch = three_hundred_pound[three_hundred_pound["Description"].str.contains("3/4'", na=False)]
+        thp_one_inch = three_hundred_pound[three_hundred_pound["Description"].str.contains("1'", na=False)]
+        thp_one_half_inch = three_hundred_pound[three_hundred_pound["Description"].str.contains("1 1/2'", na=False)]
+        thp_two_inch = three_hundred_pound[three_hundred_pound["Description"].str.contains("2'", na=False)]
+        thp_three_inch = three_hundred_pound[three_hundred_pound["Description"].str.contains("3'", na=False)]
+        thp_six_inch = three_hundred_pound[three_hundred_pound["Description"].str.contains("6'", na=False)]
+        thp_eight_inch = three_hundred_pound[three_hundred_pound["Description"].str.contains("8'", na=False)]
+        thp_ten_inch = three_hundred_pound[three_hundred_pound["Description"].str.contains("10'", na=False)]
+        thp_twelve_inch = three_hundred_pound[three_hundred_pound["Description"].str.contains("12'", na=False)]
         
         
         one_hundred_fifty_pound = gasket_values[gasket_values["Part Number"].str.contains("#150", na=False)]
         # FROM HERE OUT ONE HUNDRED FIFTY POUND FLANGE VAR WLL BE SHORTENED TO OHFP_*NAME* E.G. OHFP_ONE_INCH
-        ohfp_half_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Part Number"].str.contains("1/2in", na=False)]
-        ohfp_three_quart_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Part Number"].str.contains("3/4in", na=False)]
-        ohfp_one_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Part Number"].str.contains("1in", na=False)]
-        ohfp_one_half_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Part Number"].str.contains("1 1/2in", na=False)]
-        ohfp_two_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Part Number"].str.contains("2in", na=False)]
-        ohfp_three_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Part Number"].str.contains("3in", na=False)]
-        ohfp_four_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Part Number"].str.contains("4in", na=False)]
-        ohfp_six_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Part Number"].str.contains("6in", na=False)]
-        ohfp_eight_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Part Number"].str.contains("8in", na=False)]
-        ohfp_ten_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Part Number"].str.contains("10in", na=False)]
-        ohfp_twelve_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Part Number"].str.contains("12in", na=False)]
+        ohfp_half_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("1/2'", na=False)]
+        ohfp_three_quart_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("3/4'", na=False)]
+        ohfp_one_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("1'", na=False)]
+        ohfp_one_half_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("1 1/2'", na=False)]
+        ohfp_two_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("2'", na=False)]
+        ohfp_three_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("3'", na=False)]
+        ohfp_four_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("4'", na=False)]
+        ohfp_six_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("6'", na=False)]
+        ohfp_eight_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("8'", na=False)]
+        ohfp_ten_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("10'", na=False)]
+        ohfp_twelve_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("12'", na=False)]
         
-        print(ohfp_two_inch)
+        print(three_hundred_pound)
+        print(one_hundred_fifty_pound)
+    
+    def oil_gaskets(self):
+        excel_df = pd.read_excel(self.filepath)
+        oil_gaskets_master = excel_df[excel_df["Part Number"].str.contains("OIL", na=False)]
+        print(oil_gaskets_master)
         
-        # CHANGE ALL ABOVE TO READ DESC FOR SPLITTING SIZE - THIS NEEDS TO BE DONE TO INCORPORATE CNAF GASKETS 
+    def gas_gaskets(self):
+        excel_df = pd.read_excel(self.filepath)
+        gas_gaskets_master_1 = excel_df[excel_df["Part Number"].str.contains("GAS 1", na=False)]
+        gas_gaskets_master_2 = excel_df[excel_df["Part Number"].str.contains("GAS 2", na=False)]
+        print(gas_gaskets_master_1)
+        print(gas_gaskets_master_2)

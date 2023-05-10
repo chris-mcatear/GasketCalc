@@ -48,6 +48,7 @@ def browsefunc():
     else:
         # showinfo(title="Selected", message = filename)
         etop.filepath = filename
+        # print(filename)
         filepathtext.config(text=filename)
         #showinfo(title="ExcelToPandas File Path", message=etop.filepath)
         if len(filename) > 0:
@@ -58,7 +59,7 @@ def browsefunc():
                 # etop.gasket_series()
             else:
                 # print("Calc func Failure")
-                file_approved.config(text="File Not Valid!", foreground="#f00")
+                file_approved.config(text="File Not Valid! Double check BoM follows order of: Part Number, Qty, Unit QTY, Desciption.", foreground="#f00")
                 calculatebutton.config(state=DISABLED)
                 # messagebox.askretrycancel(title="File Invalid", message="Chosen file is not a valid Inventor BOM Export, please try again")
 
@@ -70,7 +71,16 @@ def on_closing():
 
 def calculatefunc():
     """Usage: calculatefunc(input) / Will take input of file path and pass to pandas to interperetation, pandas to return details to display() function for displaying information."""
-    etop.gasket_series()
+    # etop.gasket_series()
+    # etop.oil_gaskets()
+    etop.gas_gaskets()
+    print()
+    
+    
+def popup_window():
+    results_window = Toplevel(window)
+    results_window.minsize(height=500, width=750)
+    results_window.title("Results")
     
 
 
@@ -79,6 +89,8 @@ filepathframe = ttk.LabelFrame(window, text="Filepath: ")
 greeting = ttk.Label(text="Please choose a file")
 browserbutton = ttk.Button(text="Browse", command=browsefunc)
 calculatebutton = ttk.Button(text="Calculate", command=calculatefunc)
+# calculatebutton = ttk.Button(text="Calculate", command=popup_window)
+skip_choicebutton = ttk.Button(text="Skip Choice", command=calculatefunc)
 filepathtext = ttk.Label(filepathframe, text="Awaiting file selection.", width=100)
 file_approved = ttk.Label(text="Awaiting file selection.")
 # retrybutton = ttk.Button(text="Retry", command=browsefunc)
@@ -92,6 +104,7 @@ filepathtext.grid(row=1, column=2, padx=5, pady=5)
 browserbutton.grid(row=1, column=0, padx=10, pady=5)
 calculatebutton.grid(row=2, column=0, padx=10, pady=5)
 file_approved.grid(row=2, column=1)
+skip_choicebutton.grid(column=0, row=3)
 
 #Window Remains on Screen
 #window.protocol("WM_DELETE_WINDOW", on_closing)
