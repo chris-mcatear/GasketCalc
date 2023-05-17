@@ -59,7 +59,7 @@ def browsefunc():
                 # etop.gasket_series()
             else:
                 # print("Calc func Failure")
-                file_approved.config(text="File Not Valid! Double check BoM follows order of: Part Number, Qty, Unit QTY, Desciption.", foreground="#f00")
+                file_approved.config(text="File Not Valid! Double check BoM follows order of: Item, Part Number, QTY, Description.", foreground="#f00")
                 calculatebutton.config(state=DISABLED)
                 # messagebox.askretrycancel(title="File Invalid", message="Chosen file is not a valid Inventor BOM Export, please try again")
 
@@ -73,8 +73,14 @@ def calculatefunc():
     """Usage: calculatefunc(input) / Will take input of file path and pass to pandas to interperetation, pandas to return details to display() function for displaying information."""
     # etop.gasket_series()
     # etop.oil_gaskets()
-    etop.gas_gaskets()
-    print()
+    gas_1_gaskets, gas_2_gaskets = etop.gas_gaskets()
+    print(gas_2_gaskets)
+    # etop.df_to_excel(gas_1_gaskets)
+   
+    
+def export_to_excel():
+    # etop.
+    pass
     
     
 def popup_window():
@@ -82,7 +88,6 @@ def popup_window():
     results_window.minsize(height=500, width=750)
     results_window.title("Results")
     
-
 
 # Widgets    
 filepathframe = ttk.LabelFrame(window, text="Filepath: ")
@@ -96,6 +101,7 @@ file_approved = ttk.Label(text="Awaiting file selection.")
 # retrybutton = ttk.Button(text="Retry", command=browsefunc)
 # filepath = tk.Text(filepathtext, width=100, height=100)
 # filepath.grid(row=0, column=0)
+export_button = ttk.Button(text="Export to Excel", command=export_to_excel)
 
 # Content Layout in window
 greeting.grid(row=0, column=0, padx=5, pady=5)

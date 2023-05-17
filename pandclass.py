@@ -8,7 +8,7 @@ import pandas as pd
 
 class ExcelToPandas():
     def __init__(self):
-        self.filepath = "C:/Users/McAteach/OneDrive - Howden Group Ltd/Coding/BoM Counter/SCW42299-SBAG-01.xlsx"
+        self.filepath = "C:/Users/McAteach/OneDrive - Howden Group Ltd/Coding/BoM Counter/Majnoon New Layout.xlsx"
         
         
     def pandasfileapprove(self):
@@ -17,7 +17,7 @@ class ExcelToPandas():
             messagebox.askretrycancel(title="File Path Definition Error", message="File path not correctly defined.")
         else: 
             excel_valid = [False, False, False, False]
-            file_validator = ["Part Number", "Unit QTY", "QTY", "Description"]
+            file_validator = ["Item", "Part Number", "QTY", "Description"]
             excel_df = pd.read_excel(self.filepath)
             if len(excel_df.columns) == len(file_validator):
                 # print(excel_df.head())
@@ -60,7 +60,6 @@ class ExcelToPandas():
         thp_ten_inch = three_hundred_pound[three_hundred_pound["Description"].str.contains("10'", na=False)]
         thp_twelve_inch = three_hundred_pound[three_hundred_pound["Description"].str.contains("12'", na=False)]
         
-        
         one_hundred_fifty_pound = gasket_values[gasket_values["Part Number"].str.contains("#150", na=False)]
         # FROM HERE OUT ONE HUNDRED FIFTY POUND FLANGE VAR WLL BE SHORTENED TO OHFP_*NAME* E.G. OHFP_ONE_INCH
         ohfp_half_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("1/2'", na=False)]
@@ -78,14 +77,27 @@ class ExcelToPandas():
         print(three_hundred_pound)
         print(one_hundred_fifty_pound)
     
+    
     def oil_gaskets(self):
         excel_df = pd.read_excel(self.filepath)
         oil_gaskets_master = excel_df[excel_df["Part Number"].str.contains("OIL", na=False)]
         print(oil_gaskets_master)
         
+        
     def gas_gaskets(self):
         excel_df = pd.read_excel(self.filepath)
         gas_gaskets_master_1 = excel_df[excel_df["Part Number"].str.contains("GAS 1", na=False)]
         gas_gaskets_master_2 = excel_df[excel_df["Part Number"].str.contains("GAS 2", na=False)]
-        print(gas_gaskets_master_1)
-        print(gas_gaskets_master_2)
+        # print(gas_gaskets_master_1)
+        # print(gas_gaskets_master_2)
+        return gas_gaskets_master_1, gas_gaskets_master_2
+    
+    
+    # Cooling water is C.W. ?? 
+    def water_gaskets(self):
+        pass
+    
+    
+    # def df_to_excel(self, gasket_selection):
+    #     gasket_selection.to_excel()
+        
