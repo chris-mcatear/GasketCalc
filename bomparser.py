@@ -74,7 +74,7 @@ def calculatefunc():
     # etop.gasket_series()
     # etop.oil_gaskets()
     gas_1_gaskets, gas_2_gaskets = etop.gas_gaskets()
-    print(gas_2_gaskets)
+    # print(gas_2_gaskets)
     # etop.df_to_excel(gas_1_gaskets)
    
     

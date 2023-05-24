@@ -8,7 +8,7 @@ import pandas as pd
 
 class ExcelToPandas():
     def __init__(self):
-        self.filepath = "C:/Users/McAteach/OneDrive - Howden Group Ltd/Coding/BoM Counter/Majnoon New Layout.xlsx"
+        self.filepath = "C:/Users/McAteach/OneDrive - Howden Group Ltd/Coding/BoM Counter/P79 BoM 240523.xlsx"
         
         
     def pandasfileapprove(self):
@@ -88,8 +88,15 @@ class ExcelToPandas():
         excel_df = pd.read_excel(self.filepath)
         gas_gaskets_master_1 = excel_df[excel_df["Part Number"].str.contains("GAS 1", na=False)]
         gas_gaskets_master_2 = excel_df[excel_df["Part Number"].str.contains("GAS 2", na=False)]
-        # print(gas_gaskets_master_1)
+        print(gas_gaskets_master_1)
         # print(gas_gaskets_master_2)
+
+        # MERGE MASTER GASKET LIST BY PART NUMBER 
+        merged_gas_gaskets_1 = gas_gaskets_master_1.groupby(gas_gaskets_master_1["Part Number"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
+        merged_gas_gaskets_1['Description'] = merged_gas_gaskets_1['Description'].apply(lambda x: x.split('&&&')[0])
+        # merged_gas_gaskets_1 = merged_gas_gaskets_1.sort_values(by="Part Number")
+        print(f"\n \n \n \n Merged Gaskets: \n")
+        print(merged_gas_gaskets_1)
         return gas_gaskets_master_1, gas_gaskets_master_2
     
     
@@ -100,4 +107,7 @@ class ExcelToPandas():
     
     # def df_to_excel(self, gasket_selection):
     #     gasket_selection.to_excel()
+    
+    # https://stackoverflow.com/questions/46826773/how-can-i-merge-rows-by-same-value-in-a-column-in-pandas-with-aggregation-func
+    # this is how to combine dataframes to make them shorter, should be able to add this after master lists and get aggregated lists. 
         
