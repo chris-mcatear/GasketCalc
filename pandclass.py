@@ -137,5 +137,68 @@ class ExcelToPandas():
         filename = fd.asksaveasfilename(initialdir = "/",title = "Select file",filetypes = (("Excel File", "*.xlsx"),("all files","*.*")))
         print(type(merged_export))
         merged_export.to_excel(f'{filename}.xlsx')
+        
+    
+    def ax_number_column(self, merged_export):
+        pass
+    
+        ax_numbers_list = []
+                
+        for index, row in merged_export.iterrows():
+            description = row["Description"]
+            temp_ax = "HI"
+            
+            # SPIRAL OR OTHER GASKET TYPE 
+            if "SPIRAL" in description:
+                temp_ax += "42"
+            else:
+                temp_ax +=" else detected"
+            
+            # RATING     
+            if "#150" in description:
+                temp_ax += "150"
+            elif "#300" in description:
+                temp_ax += "300"
+            else:
+                temp_ax += "error"
+            
+            # DIN PIPE SIZE (INCH SIZE x 25 ROUNDED TO NEAREST)
+            if "1 1/2'" in description:
+                temp_ax += "040"
+            elif "2'" in description:
+                temp_ax += "050"
+            elif "1'" in description:
+                temp_ax += "025"
+            elif "3/4'" in description:
+                temp_ax += "020"
+            elif "3'" in description:
+                temp_ax += "075"
+            elif "4'" in description:
+                temp_ax += "100"
+            elif "5'" in description:
+                temp_ax += "125"
+            elif "6'" in description:
+                temp_ax += "150"
+            elif "7'" in description:
+                temp_ax += "175"
+            elif "8'" in description:
+                temp_ax += "200"
+            elif "9'" in description:
+                temp_ax += "225"
+            elif "10'" in description:
+                temp_ax += "250"
+            elif "11'" in description:
+                temp_ax += "275"
+            elif "12'" in description:
+                temp_ax += "300"
+            elif "20'" in description:
+                temp_ax += "500"
+            elif "24'" in description:
+                temp_ax += "600"
+            
+            ax_numbers_list.append(temp_ax)
+            
+        merged_export["AX Numbers"] = ax_numbers_list
+        print(merged_export)
 
-# CONDNESATE, ISOLATING
+# CONDNESATE, ISOLATING     

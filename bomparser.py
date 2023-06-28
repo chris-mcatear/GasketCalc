@@ -24,6 +24,8 @@ from tkinter.messagebox import showinfo
 from tkinter import messagebox
 import pandas as pd
 from pandclass import ExcelToPandas
+import pandastable as pt
+from pandastable import *
     
 #Define window
 window = tk.Tk()
@@ -79,18 +81,20 @@ def calculatefunc():
     gas_1_gaskets, gas_2_gaskets = etop.gas_gaskets()
     cw_gaskets = etop.water_gaskets()
     
+    
     merged_gaskets_master = [gas_1_gaskets, gas_2_gaskets, oil_1_gaskets, oil_2_gaskets, cw_gaskets]
     final_grouping = pd.concat(merged_gaskets_master)
     # print(gas_1_gaskets)
     # print(gas_2_gaskets)
     # print(cw_gaskets)
-    print(final_grouping)
+    # print(final_grouping)
     return final_grouping
    
     
 def export_to_excel():
+    # THIS CURRENTLY ISNT EXPORT IT IS SOLEY TO TEST ADDING NEW COLUMN
     merged_export = calculatefunc()
-    etop.df_to_excel(merged_export)
+    etop.ax_number_column(merged_export)
     
     
 def popup_window():
@@ -98,17 +102,23 @@ def popup_window():
     results_window.minsize(height=500, width=1000)
     results_window.title("Results")
     
-    gas_1_export, gas_2_export, merged_export, cw_gaskets = calculatefunc()
+    final_grouping = calculatefunc()
+    # final_grouping.insert(0, 'test', final_grouping)
+    
+    # frame = tk.Frame(results_window)
+    # frame.grid(row=0, column=0)
+    
+    # tableview = pt.Table(frame, dataframe=final_grouping, showtoolbar=True, showstatusbar=True)
+    # tableview.show()
     
     tree = ttk.Treeview(results_window)
-    tree["columns"] = tuple(merged_export.columns)
-    # tree.heading=('#0', "Part Number")
+    tree["columns"] = tuple(final_grouping.columns)
     
-    for column in merged_export.columns:
+    for column in final_grouping.columns:
         tree.column(column, width=100, anchor="w")
         tree.heading(column, text=column)
         
-    for index, row in merged_export.iterrows():
+    for index, row in final_grouping.iterrows():
         tree.insert("", "end", text=index, values=tuple(row))
         
     tree.pack(expand=True, fill="both")
