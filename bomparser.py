@@ -39,6 +39,7 @@ window.minsize(height=500)
 #style = darkstyle(window)
 
 etop = ExcelToPandas()
+MATERIAL_CHOSEN = False
 
 def browsefunc():
     filetypes = (("Excel File", "*.xlsx"),)
@@ -77,12 +78,15 @@ def on_closing():
 def calculatefunc():
     """Usage: calculatefunc(input) / Will take input of file path and pass to pandas to interperetation, pandas to return details to display() function for displaying information."""
     # etop.gasket_series()
+    
     oil_1_gaskets, oil_2_gaskets = etop.oil_gaskets()
     gas_1_gaskets, gas_2_gaskets = etop.gas_gaskets()
     cw_gaskets = etop.water_gaskets()
+    seal_gaskets = etop.seal_gaskets()
+    isolating_gaskets = etop.isolating_gaskets()
+    condensate_gaskets = etop.condensate_gaskets()
     
-    
-    merged_gaskets_master = [gas_1_gaskets, gas_2_gaskets, oil_1_gaskets, oil_2_gaskets, cw_gaskets]
+    merged_gaskets_master = [gas_1_gaskets, gas_2_gaskets, oil_1_gaskets, oil_2_gaskets, cw_gaskets, seal_gaskets, isolating_gaskets, condensate_gaskets]
     final_grouping = pd.concat(merged_gaskets_master)
     # print(gas_1_gaskets)
     # print(gas_2_gaskets)
@@ -94,7 +98,10 @@ def calculatefunc():
 def export_to_excel():
     # THIS CURRENTLY ISNT EXPORT IT IS SOLEY TO TEST ADDING NEW COLUMN
     merged_export = calculatefunc()
+    print(merged_export)
     etop.ax_number_column(merged_export)
+    etop.bolt_quantity(merged_export)
+    etop.df_to_excel(merged_export)
     
     
 def popup_window():
@@ -124,6 +131,20 @@ def popup_window():
     tree.pack(expand=True, fill="both")
 
 
+def material_chooser():
+    # THIS EXISTS JUST TO CHANGE THE FKN EXCEL BUTTON ASDJDGSGNDSGNDGN
+    etop.material_types()
+    export_button["state"] = tk.NORMAL
+    
+    
+# Dropdown Options
+# options = ["A", 
+#            "B",
+#            "C",
+#            "D",]
+
+# option_var = tk.StringVar()
+
 # Widgets    
 filepathframe = ttk.LabelFrame(text="Filepath: ")
 greeting = ttk.Label(text="Please choose a file")
@@ -133,18 +154,23 @@ skip_choicebutton = ttk.Button(text="Skip Choice", command=calculatefunc, width=
 filepathtext = ttk.Label(filepathframe, text="Awaiting file selection.", width=70)
 file_approved = ttk.Label(text="Awaiting file selection.")
 export_button = ttk.Button(text="Export to Excel", command=export_to_excel, width=15)
+export_button["state"] = tk.DISABLED
 preview_button = ttk.Button(text="Preview data", command=popup_window, width=15)
+#oil_dropdown = ttk.OptionMenu(window, option_var, options[0], *options)
+material_window_button = ttk.Button(text="Material Window", command=material_chooser)
 
 
 # Content Layout in window
 filepathframe.grid(row=1, column=0, columnspan=6, padx=25, pady=25)
 filepathtext.grid(row=1, column=0, columnspan=3, padx=10, pady=5)
 browserbutton.grid(row=0, column=0)
-calculatebutton.grid(row=0, column=1)
+# calculatebutton.grid(row=0, column=1)
 file_approved.grid(row=2, column=0, columnspan=6)
-skip_choicebutton.grid(column=2, row=0)
+# skip_choicebutton.grid(column=2, row=0)
 export_button.grid(column=4, row=0)
-preview_button.grid(column=5, row=0)
+# preview_button.grid(column=5, row=0)
+# oil_dropdown.grid(column=10, row=0)
+material_window_button.grid(column=3, row=0)
 
 
 window.mainloop()
