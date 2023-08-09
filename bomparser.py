@@ -98,7 +98,7 @@ def calculatefunc():
 def export_to_excel():
     # THIS CURRENTLY ISNT EXPORT IT IS SOLEY TO TEST ADDING NEW COLUMN
     merged_export = calculatefunc()
-    print(merged_export)
+    # print(merged_export)
     etop.ax_number_column(merged_export)
     etop.bolt_quantity(merged_export)
     etop.df_to_excel(merged_export)
@@ -134,6 +134,10 @@ def popup_window():
 def material_chooser():
     # THIS EXISTS JUST TO CHANGE THE FKN EXCEL BUTTON ASDJDGSGNDSGNDGN
     etop.material_types()
+    bolt_material_window_button["state"] = tk.NORMAL
+    
+def bolt_material_chooser():
+    etop.bolt_material_types()
     export_button["state"] = tk.NORMAL
     
     
@@ -157,7 +161,9 @@ export_button = ttk.Button(text="Export to Excel", command=export_to_excel, widt
 export_button["state"] = tk.DISABLED
 preview_button = ttk.Button(text="Preview data", command=popup_window, width=15)
 #oil_dropdown = ttk.OptionMenu(window, option_var, options[0], *options)
-material_window_button = ttk.Button(text="Material Window", command=material_chooser)
+material_window_button = ttk.Button(text="Flange Materials", command=material_chooser)
+bolt_material_window_button = ttk.Button(text="Bolt Materials", command=bolt_material_chooser)
+bolt_material_window_button["state"] = tk.DISABLED
 
 
 # Content Layout in window
@@ -170,7 +176,8 @@ file_approved.grid(row=2, column=0, columnspan=6)
 export_button.grid(column=4, row=0)
 # preview_button.grid(column=5, row=0)
 # oil_dropdown.grid(column=10, row=0)
-material_window_button.grid(column=3, row=0)
+material_window_button.grid(column=2, row=0)
+bolt_material_window_button.grid(column=3, row=0)
 
 
 window.mainloop()
