@@ -23,10 +23,12 @@ from tkinter import filedialog as fd
 from tkinter.messagebox import showinfo
 from tkinter import messagebox
 import pandas as pd
-from pandclass import ExcelToPandas
+from pandclass import *
 import pandastable as pt
 from pandastable import *
-    
+
+
+
 #Define window
 window = tk.Tk()
 window.title('BoM Parser - ALPHA 0.0.1')

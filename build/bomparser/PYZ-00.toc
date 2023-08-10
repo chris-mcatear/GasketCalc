@@ -518,6 +518,10 @@
   ('et_xmlfile.xmlfile',
    'C:\\Users\\McAteach\\AppData\\Roaming\\Python\\Python310\\site-packages\\et_xmlfile\\xmlfile.py',
    'PYMODULE'),
+  ('flange_info',
+   'C:\\Users\\McAteach\\OneDrive - Howden Group Ltd\\Coding\\Bom '
+   'Counter\\flange_info.py',
+   'PYMODULE'),
   ('fractions', 'C:\\Program Files\\Python310\\lib\\fractions.py', 'PYMODULE'),
   ('ftplib', 'C:\\Program Files\\Python310\\lib\\ftplib.py', 'PYMODULE'),
   ('getopt', 'C:\\Program Files\\Python310\\lib\\getopt.py', 'PYMODULE'),
@@ -2841,6 +2845,10 @@
    'PYMODULE'),
   ('pandastable.util',
    'C:\\Users\\McAteach\\AppData\\Roaming\\Python\\Python310\\site-packages\\pandastable\\util.py',
+   'PYMODULE'),
+  ('pandclass',
+   'C:\\Users\\McAteach\\OneDrive - Howden Group Ltd\\Coding\\Bom '
+   'Counter\\pandclass.py',
    'PYMODULE'),
   ('pdb', 'C:\\Program Files\\Python310\\lib\\pdb.py', 'PYMODULE'),
   ('pickle', 'C:\\Program Files\\Python310\\lib\\pickle.py', 'PYMODULE'),

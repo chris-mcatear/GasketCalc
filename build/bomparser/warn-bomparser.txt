@@ -260,7 +260,6 @@ missing module named Tkinter - imported by pandastable.core (optional), pandasta
 missing module named ConfigParser - imported by pandastable.config (optional)
 missing module named certifi - imported by matplotlib (delayed, optional)
 missing module named setuptools_scm - imported by matplotlib (delayed, conditional)
-missing module named pandclass - imported by C:\Users\McAteach\OneDrive - Howden Group Ltd\Coding\BoM Counter\bomparser.py (top-level)
 missing module named 'lxml.html' - imported by pandas.io.html (delayed)
 missing module named bs4 - imported by pandas.io.html (delayed)
 missing module named pytest - imported by pandas._testing._io (delayed), pandas._testing (delayed)
