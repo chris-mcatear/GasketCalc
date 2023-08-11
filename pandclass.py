@@ -68,47 +68,7 @@ class ExcelToPandas():
                 # messagebox.askretrycancel(title="File Invalid", message="Chosen file is not a valid Inventor BOM Export, please try again")
                 return False
 
-            
-    # def gasket_series(self):
-    #     # print("Starting Gasket Count")
-    #     # print(self.filepath)
-    #     excel_df = pd.read_excel(self.filepath)
-    #     # print(type(excel_df))
-    #     # print(excel_df.head())
-    #     gasket_values = excel_df[excel_df["Part Number"].str.contains("GASKET", na=False)]
-    #     # print(gasket_values)
-    #     three_hundred_pound = gasket_values[gasket_values["Part Number"].str.contains("#300", na=False)]
-    #     # print(three_hundred_pound)
-    #     # FROM HERE OUT THREE HUNDRED POUND FLANGE VAR WLL BE SHORTENED TO THP_*NAME* E.G. THP_ONE_INCH
-    #     thp_half_inch = three_hundred_pound[three_hundred_pound["Description"].str.contains("1/2'", na=False)]
-    #     thp_three_quart_inch = three_hundred_pound[three_hundred_pound["Description"].str.contains("3/4'", na=False)]
-    #     thp_one_inch = three_hundred_pound[three_hundred_pound["Description"].str.contains("1'", na=False)]
-    #     thp_one_half_inch = three_hundred_pound[three_hundred_pound["Description"].str.contains("1 1/2'", na=False)]
-    #     thp_two_inch = three_hundred_pound[three_hundred_pound["Description"].str.contains("2'", na=False)]
-    #     thp_three_inch = three_hundred_pound[three_hundred_pound["Description"].str.contains("3'", na=False)]
-    #     thp_six_inch = three_hundred_pound[three_hundred_pound["Description"].str.contains("6'", na=False)]
-    #     thp_eight_inch = three_hundred_pound[three_hundred_pound["Description"].str.contains("8'", na=False)]
-    #     thp_ten_inch = three_hundred_pound[three_hundred_pound["Description"].str.contains("10'", na=False)]
-    #     thp_twelve_inch = three_hundred_pound[three_hundred_pound["Description"].str.contains("12'", na=False)]
-        
-    #     one_hundred_fifty_pound = gasket_values[gasket_values["Part Number"].str.contains("#150", na=False)]
-    #     # FROM HERE OUT ONE HUNDRED FIFTY POUND FLANGE VAR WLL BE SHORTENED TO OHFP_*NAME* E.G. OHFP_ONE_INCH
-    #     ohfp_half_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("1/2'", na=False)]
-    #     ohfp_three_quart_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("3/4'", na=False)]
-    #     ohfp_one_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("1'", na=False)]
-    #     ohfp_one_half_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("1 1/2'", na=False)]
-    #     ohfp_two_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("2'", na=False)]
-    #     ohfp_three_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("3'", na=False)]
-    #     ohfp_four_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("4'", na=False)]
-    #     ohfp_six_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("6'", na=False)]
-    #     ohfp_eight_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("8'", na=False)]
-    #     ohfp_ten_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("10'", na=False)]
-    #     ohfp_twelve_inch = one_hundred_fifty_pound[one_hundred_fifty_pound["Description"].str.contains("12'", na=False)]
-        
-    #     print(three_hundred_pound)
-    #     print(one_hundred_fifty_pound)
-    
-    
+
     def oil_gaskets(self):
         excel_df = pd.read_excel(self.filepath)
         oil_gaskets_master_1 = excel_df[excel_df["Part Number"].str.contains("OIL 1", na=False)]
@@ -127,8 +87,6 @@ class ExcelToPandas():
         excel_df = pd.read_excel(self.filepath)
         gas_gaskets_master_1 = excel_df[excel_df["Part Number"].str.contains("GAS 1", na=False)]
         gas_gaskets_master_2 = excel_df[excel_df["Part Number"].str.contains("GAS 2", na=False)]
-        # print(gas_gaskets_master_1)
-        # print(gas_gaskets_master_2)
 
         # MERGE MASTER GASKET LIST BY PART NUMBER 
         grouped_gas_gaskets_1 = gas_gaskets_master_1.groupby(gas_gaskets_master_1["Part Number"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
@@ -170,7 +128,6 @@ class ExcelToPandas():
         return grouped_condensate_gaskets
     
     
-    
     def df_to_excel(self, merged_export):
         filetypes = (("Excel File", "*.xlsx"),)
         filename = fd.asksaveasfilename(initialdir = "/",title = "Select file",filetypes = (("Excel File", "*.xlsx"),("all files","*.*")))
@@ -181,9 +138,6 @@ class ExcelToPandas():
         
         
     def material_types(self):
-        # basically I want to make a pop up window to prompt for material types 
-        # this will force user into choosing thm and localise the selection 
-        # will need to feed back the inputs into the ax numbers as well
         window_2 = tk.Tk()
         window_2.title("Material Selection")
         window_2.minsize(height=250, width=500)
@@ -206,13 +160,7 @@ class ExcelToPandas():
             SEAL_MATERIAL_CHOICE = seal_dropdown.get()
             global CONDENSATE_MATERIAL_CHOICE
             CONDENSATE_MATERIAL_CHOICE = condensate_dropdown.get()
-            # messagebox.showinfo(message=f"Selected material: {OIL_ONE_MATERIAL_CHOICE}")
-            # print(OIL_ONE_MATERIAL_CHOICE)
-            # print(OIL_TWO_MATERIAL_CHOICE)
-            # print(GAS_ONE_MATERIAL_CHOICE)
-            # print(GAS_TWO_MATERIAL_CHOICE)
-            # print(CW_MATERIAL_CHOICE)
-            # return OIL_ONE_MATERIAL_CHOICE
+
             window_2.destroy()
         
         #Dropdowns 
@@ -330,20 +278,6 @@ class ExcelToPandas():
         
         a_text.grid(column=4, row=1, rowspan=8)
         b_text.grid(column=3, row=1)
-        # c_text.grid(column=3, row=3)
-        # d_text.grid(column=3, row=4)
-        # e_text.grid(column=3, row=5)
-        # f_text.grid(column=3, row=6)
-        # g_text.grid(column=3, row=7)
-        # j_text.grid(column=3, row=8)
-        # k_text.grid(column=3, row=9)
-        # l_text.grid(column=3, row=10)
-        # m_text.grid(column=3, row=11)
-        # n_text.grid(column=3, row=12)
-        # p_text.grid(column=3, row=13)
-        # s_text.grid(column=3, row=14)
-        # t_text.grid(column=3, row=15)
-        # x_text.grid(column=3, row=16)
 
 
     def ax_number_column(self, merged_export):
@@ -429,9 +363,6 @@ class ExcelToPandas():
         
         
     def bolt_material_types(self):
-        # basically I want to make a pop up window to prompt for material types 
-        # this will force user into choosing thm and localise the selection 
-        # will need to feed back the inputs into the ax numbers as well
         window_2 = tk.Tk()
         window_2.title("Bolt Material Selection")
         window_2.minsize(height=250, width=500)
@@ -454,13 +385,7 @@ class ExcelToPandas():
             BOLT_SEAL_MATERIAL_CHOICE = bolt_seal_dropdown.get()
             global BOLT_CONDENSATE_MATERIAL_CHOICE
             BOLT_CONDENSATE_MATERIAL_CHOICE = bolt_condensate_dropdown.get()
-            # messagebox.showinfo(message=f"Selected material: {OIL_ONE_MATERIAL_CHOICE}")
-            # print(OIL_ONE_MATERIAL_CHOICE)
-            # print(OIL_TWO_MATERIAL_CHOICE)
-            # print(GAS_ONE_MATERIAL_CHOICE)
-            # print(GAS_TWO_MATERIAL_CHOICE)
-            # print(CW_MATERIAL_CHOICE)
-            # return OIL_ONE_MATERIAL_CHOICE
+            
             window_2.destroy()
         
         #Dropdowns 
@@ -578,21 +503,6 @@ class ExcelToPandas():
         
         a_text.grid(column=4, row=1, rowspan=8)
         b_text.grid(column=3, row=1)
-        # c_text.grid(column=3, row=3)
-        # d_text.grid(column=3, row=4)
-        # e_text.grid(column=3, row=5)
-        # f_text.grid(column=3, row=6)
-        # g_text.grid(column=3, row=7)
-        # j_text.grid(column=3, row=8)
-        # k_text.grid(column=3, row=9)
-        # l_text.grid(column=3, row=10)
-        # m_text.grid(column=3, row=11)
-        # n_text.grid(column=3, row=12)
-        # p_text.grid(column=3, row=13)
-        # s_text.grid(column=3, row=14)
-        # t_text.grid(column=3, row=15)
-        # x_text.grid(column=3, row=16)
-
 
     def bolt_quantity(self, merged_export):
         bolt_qty_list = []
@@ -605,9 +515,8 @@ class ExcelToPandas():
             part_numb = index
             flange_qty = row["QTY"]
             
-            #find out if its "in" or "NB" and split text accordingly 
             if "in" in description:
-                size = description.split(" ") # this finds the size if "in" is in the description - size[0] is therefore the size of the part
+                size = description.split(" ")
                 size = size[0]
             elif "NB" in description:
                 size = description.split("''NB ")
@@ -647,4 +556,3 @@ class ExcelToPandas():
         merged_export["Bolt Size"] = bolt_size_list
         merged_export["Bolt Length"] = bolt_length_list
         merged_export["Bolt HPC No."] = bolt_hpc_num
-        # print(merged_export)
