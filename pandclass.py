@@ -39,7 +39,7 @@ BOLT_CONDENSATE_MATERIAL_CHOICE = "ERROR"
 
 class ExcelToPandas():
     def __init__(self):
-        self.filepath = "C:/Users/McAteach/OneDrive - Howden Group Ltd/Coding/BoM Counter/P79 BoM 240523.xlsx"
+        self.filepath = ""
         
         
     def pandasfileapprove(self):

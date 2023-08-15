@@ -36,10 +36,10 @@ def browsefunc():
         if len(filename) > 0:
             if etop.pandasfileapprove() == True:
                 file_approved.config(text="File Valid!", foreground="#11a713")
-                calculatebutton.config(state=NORMAL)
+                material_window_button.config(state=NORMAL)
             else:
                 file_approved.config(text="File Not Valid! Double check BoM follows order of: Item, Part Number, QTY, Description.", foreground="#f00")
-                calculatebutton.config(state=DISABLED)
+                material_window_button.config(state=DISABLED)
 
 
 def calculatefunc():
@@ -97,6 +97,7 @@ export_button["state"] = tk.DISABLED
 # preview_button = ttk.Button(text="Preview data", command=popup_window, width=15)
 #oil_dropdown = ttk.OptionMenu(window, option_var, options[0], *options)
 material_window_button = ttk.Button(text="Flange Materials", command=material_chooser)
+material_window_button["state"] = tk.DISABLED
 bolt_material_window_button = ttk.Button(text="Bolt Materials", command=bolt_material_chooser)
 bolt_material_window_button["state"] = tk.DISABLED
 contact_button = ttk.Button(text="Got a Problem?", command=issues_window)

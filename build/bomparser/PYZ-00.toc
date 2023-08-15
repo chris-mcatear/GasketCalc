@@ -519,7 +519,7 @@
    'C:\\Users\\McAteach\\AppData\\Roaming\\Python\\Python310\\site-packages\\et_xmlfile\\xmlfile.py',
    'PYMODULE'),
   ('flange_info',
-   'C:\\Users\\McAteach\\OneDrive - Howden Group Ltd\\Coding\\Bom '
+   'C:\\Users\\McAteach\\OneDrive - Howden Group Ltd\\Coding\\BoM '
    'Counter\\flange_info.py',
    'PYMODULE'),
   ('fractions', 'C:\\Program Files\\Python310\\lib\\fractions.py', 'PYMODULE'),
@@ -2847,7 +2847,7 @@
    'C:\\Users\\McAteach\\AppData\\Roaming\\Python\\Python310\\site-packages\\pandastable\\util.py',
    'PYMODULE'),
   ('pandclass',
-   'C:\\Users\\McAteach\\OneDrive - Howden Group Ltd\\Coding\\Bom '
+   'C:\\Users\\McAteach\\OneDrive - Howden Group Ltd\\Coding\\BoM '
    'Counter\\pandclass.py',
    'PYMODULE'),
   ('pdb', 'C:\\Program Files\\Python310\\lib\\pdb.py', 'PYMODULE'),

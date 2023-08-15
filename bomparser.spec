@@ -6,7 +6,7 @@ block_cipher = None
 
 a = Analysis(
     ['bomparser.py'],
-    pathex=['C:\\Users\\McAteach\\OneDrive - Howden Group Ltd\\Coding\\Bom Counter'],
+    pathex=['C:\\Users\McAteach\\OneDrive - Howden Group Ltd\\Coding\\BoM Counter'],
     binaries=[],
     datas=[],
     hiddenimports=['pandclass.py', 'pandclass'],
@@ -41,4 +41,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    icon=['bolt.ico'],
 )
