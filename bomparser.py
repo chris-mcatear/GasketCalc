@@ -14,7 +14,7 @@ from pandastable import *
 
 #Define window
 window = tk.Tk()
-window.title('Gaskets & Bolts Calculator - BETA 1.0')
+window.title('Gaskets & Bolts Calculator - BETA 1.1')
 # window.resizable(False, False)
 # window.geometry("1000x150")
 window.config(padx=25, pady=25)
@@ -96,7 +96,7 @@ export_button = ttk.Button(text="Export to Excel", command=export_to_excel, widt
 export_button["state"] = tk.DISABLED
 # preview_button = ttk.Button(text="Preview data", command=popup_window, width=15)
 #oil_dropdown = ttk.OptionMenu(window, option_var, options[0], *options)
-material_window_button = ttk.Button(text="Flange Materials", command=material_chooser)
+material_window_button = ttk.Button(text="Gasket Materials", command=material_chooser)
 material_window_button["state"] = tk.DISABLED
 bolt_material_window_button = ttk.Button(text="Bolt Materials", command=bolt_material_chooser)
 bolt_material_window_button["state"] = tk.DISABLED

@@ -19,11 +19,9 @@ GAS_TWO_MATERIAL_CHOICE = "ERROR"
 
 CW_MATERIAL_CHOICE = "ERROR"
 
-
 ISOLATING_MATERIAL_CHOICE = "ERROR"
 SEAL_MATERIAL_CHOICE = "ERROR"
 CONDENSATE_MATERIAL_CHOICE = "ERROR"
-
 
 BOLT_OIL_ONE_MATERIAL_CHOICE = "ERROR"
 BOLT_OIL_TWO_MATERIAL_CHOICE = "ERROR"
@@ -37,6 +35,16 @@ BOLT_ISOLATING_MATERIAL_CHOICE = "ERROR"
 BOLT_SEAL_MATERIAL_CHOICE = "ERROR"
 BOLT_CONDENSATE_MATERIAL_CHOICE = "ERROR"
 
+BOLT_OIL_ONE_WASHER_CHBOX = "ERROR"
+BOLT_OIL_TWO_WASHER_CHBOX = "ERROR"
+BOLT_GAS_ONE_WASHER_CHBOX = "ERROR"
+BOLT_GAS_TWO_WASHER_CHBOX = "ERROR"
+BOLT_CW_WASHER_CHBOX = "ERROR"
+BOLT_ISOLATING_WASHER_CHBOX = "ERROR"
+BOLT_CONDENSATE_WASHER_CHBOX = "ERROR"
+BOLT_SEAL_WASHER_CHBOX = "ERROR"
+
+
 class ExcelToPandas():
     def __init__(self):
         self.filepath = ""
@@ -48,7 +56,7 @@ class ExcelToPandas():
             messagebox.askretrycancel(title="File Path Definition Error", message="File path not correctly defined.")
         else: 
             excel_valid = [False, False, False, False]
-            file_validator = ["Item", "Part Number", "QTY", "Description"]
+            file_validator = ["Item", "Filename", "QTY", "Description"]
             excel_df = pd.read_excel(self.filepath)
             if len(excel_df.columns) == len(file_validator):
                 # print(excel_df.head())
@@ -71,13 +79,13 @@ class ExcelToPandas():
 
     def oil_gaskets(self):
         excel_df = pd.read_excel(self.filepath)
-        oil_gaskets_master_1 = excel_df[excel_df["Part Number"].str.contains("OIL 1", na=False)]
-        oil_gaskets_master_2 = excel_df[excel_df["Part Number"].str.contains("OIL 2", na=False)]
+        oil_gaskets_master_1 = excel_df[excel_df["Filename"].str.contains("OIL 1", na=False)]
+        oil_gaskets_master_2 = excel_df[excel_df["Filename"].str.contains("OIL 2", na=False)]
         
-        grouped_oil_gaskets_1 = oil_gaskets_master_1.groupby(oil_gaskets_master_1["Part Number"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
+        grouped_oil_gaskets_1 = oil_gaskets_master_1.groupby(oil_gaskets_master_1["Filename"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
         grouped_oil_gaskets_1['Description'] = grouped_oil_gaskets_1['Description'].apply(lambda x: x.split('&&&')[0])
         
-        grouped_oil_gaskets_2 = oil_gaskets_master_2.groupby(oil_gaskets_master_2["Part Number"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
+        grouped_oil_gaskets_2 = oil_gaskets_master_2.groupby(oil_gaskets_master_2["Filename"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
         grouped_oil_gaskets_2['Description'] = grouped_oil_gaskets_2['Description'].apply(lambda x: x.split('&&&')[0])
         
         return grouped_oil_gaskets_1, grouped_oil_gaskets_2
@@ -85,14 +93,14 @@ class ExcelToPandas():
         
     def gas_gaskets(self):
         excel_df = pd.read_excel(self.filepath)
-        gas_gaskets_master_1 = excel_df[excel_df["Part Number"].str.contains("GAS 1", na=False)]
-        gas_gaskets_master_2 = excel_df[excel_df["Part Number"].str.contains("GAS 2", na=False)]
+        gas_gaskets_master_1 = excel_df[excel_df["Filename"].str.contains("GAS 1", na=False)]
+        gas_gaskets_master_2 = excel_df[excel_df["Filename"].str.contains("GAS 2", na=False)]
 
-        # MERGE MASTER GASKET LIST BY PART NUMBER 
-        grouped_gas_gaskets_1 = gas_gaskets_master_1.groupby(gas_gaskets_master_1["Part Number"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
+        # MERGE MASTER GASKET LIST BY Filename 
+        grouped_gas_gaskets_1 = gas_gaskets_master_1.groupby(gas_gaskets_master_1["Filename"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
         grouped_gas_gaskets_1['Description'] = grouped_gas_gaskets_1['Description'].apply(lambda x: x.split('&&&')[0])
         
-        grouped_gas_gaskets_2 = gas_gaskets_master_2.groupby(gas_gaskets_master_2["Part Number"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
+        grouped_gas_gaskets_2 = gas_gaskets_master_2.groupby(gas_gaskets_master_2["Filename"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
         grouped_gas_gaskets_2['Description'] = grouped_gas_gaskets_2['Description'].apply(lambda x: x.split('&&&')[0])
         
         return grouped_gas_gaskets_1, grouped_gas_gaskets_2
@@ -101,30 +109,31 @@ class ExcelToPandas():
     # Cooling water is C.W. ?? 
     def water_gaskets(self):
         excel_df = pd.read_excel(self.filepath)
-        cw_gaskets = excel_df[excel_df["Part Number"].str.contains("- CW", na=False)]
-        grouped_cw_gaskets = cw_gaskets.groupby(cw_gaskets["Part Number"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
+        cw_gaskets = excel_df[excel_df["Filename"].str.contains("- CW", na=False)]
+        grouped_cw_gaskets = cw_gaskets.groupby(cw_gaskets["Filename"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
         grouped_cw_gaskets['Description'] = grouped_cw_gaskets['Description'].apply(lambda x: x.split('&&&')[0])
         return grouped_cw_gaskets
     
     
     def seal_gaskets(self):
         excel_df = pd.read_excel(self.filepath)
-        seal_gaskets = excel_df[excel_df["Part Number"].str.contains("SEAL", na=False)]
-        grouped_seal_gaskets = seal_gaskets.groupby(seal_gaskets["Part Number"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
+        seal_gaskets = excel_df[excel_df["Filename"].str.contains("SEAL", na=False)]
+        # grouped_seal_gaskets = seal_gaskets.groupby(seal_gaskets["Filename"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
+        grouped_seal_gaskets = seal_gaskets.groupby(seal_gaskets["Filename"])
         return grouped_seal_gaskets
     
     
     def isolating_gaskets(self):
         excel_df = pd.read_excel(self.filepath)
-        isolating_gaskets = excel_df[excel_df["Part Number"].str.contains("INSULATE", na=False)]
-        grouped_isolating_gaskets = isolating_gaskets.groupby(isolating_gaskets["Part Number"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
+        isolating_gaskets = excel_df[excel_df["Filename"].str.contains("INSULATE", na=False)]
+        grouped_isolating_gaskets = isolating_gaskets.groupby(isolating_gaskets["Filename"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
         return grouped_isolating_gaskets
     
     
     def condensate_gaskets(self):
         excel_df = pd.read_excel(self.filepath)
-        condensate_gaskets = excel_df[excel_df["Part Number"].str.contains("ISOLATING", na=False)]
-        grouped_condensate_gaskets = condensate_gaskets.groupby(condensate_gaskets["Part Number"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
+        condensate_gaskets = excel_df[excel_df["Filename"].str.contains("ISOLATING", na=False)]
+        grouped_condensate_gaskets = condensate_gaskets.groupby(condensate_gaskets["Filename"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
         return grouped_condensate_gaskets
     
     
@@ -302,6 +311,8 @@ class ExcelToPandas():
                 temp_ax += "150"
             elif "#300" in description:
                 temp_ax += "300"
+            elif "#600" in description:
+                temp_ax += "600"
             else:
                 temp_ax += "error"
             
@@ -368,6 +379,7 @@ class ExcelToPandas():
         window_2.minsize(height=250, width=500)
         
         def button_press():
+            print("button pressed")
             # print(oil_one_dropdown.get())
             global BOLT_OIL_ONE_MATERIAL_CHOICE
             BOLT_OIL_ONE_MATERIAL_CHOICE = bolt_oil_one_dropdown.get()
@@ -385,6 +397,23 @@ class ExcelToPandas():
             BOLT_SEAL_MATERIAL_CHOICE = bolt_seal_dropdown.get()
             global BOLT_CONDENSATE_MATERIAL_CHOICE
             BOLT_CONDENSATE_MATERIAL_CHOICE = bolt_condensate_dropdown.get()
+            
+            global BOLT_OIL_ONE_WASHER_CHBOX
+            BOLT_OIL_ONE_WASHER_CHBOX = bolt_oil_one_chbox_var.get()
+            global BOLT_OIL_TWO_WASHER_CHBOX
+            BOLT_OIL_TWO_WASHER_CHBOX = bolt_oil_two_chbox_var.get()
+            global BOLT_GAS_ONE_WASHER_CHBOX
+            BOLT_GAS_ONE_WASHER_CHBOX = bolt_gas_one_chbox_var.get()
+            global BOLT_GAS_TWO_WASHER_CHBOX
+            BOLT_GAS_TWO_WASHER_CHBOX = bolt_gas_two_chbox_var.get()
+            global BOLT_CW_WASHER_CHBOX
+            BOLT_CW_WASHER_CHBOX = bolt_cw_chbox_var.get()
+            global BOLT_ISOLATING_WASHER_CHBOX
+            BOLT_ISOLATING_WASHER_CHBOX = bolt_isolating_chbox_var.get()
+            global BOLT_CONDENSATE_WASHER_CHBOX
+            BOLT_CONDENSATE_WASHER_CHBOX = bolt_condensate_chbox_var.get()
+            global BOLT_SEAL_WASHER_CHBOX
+            BOLT_SEAL_WASHER_CHBOX = bolt_seal_chbox_var.get()
             
             window_2.destroy()
         
@@ -414,6 +443,9 @@ class ExcelToPandas():
         bolt_oil_one_dropdown['values'] = options
         bolt_oil_one_dropdown['state'] = "readonly"
         bolt_oil_one_dropdown.grid(column=2, row=1)
+        bolt_oil_one_chbox_var = IntVar()
+        bolt_oil_one_chbox = Checkbutton(window_2, text="Washers?", variable=bolt_oil_one_chbox_var, onvalue=1, offvalue=0)
+        bolt_oil_one_chbox.grid(column=3, row=1)
         
         #OIL 2 DROPDOWN MENU
         bolt_oil_two_option_var = StringVar()
@@ -422,6 +454,9 @@ class ExcelToPandas():
         bolt_oil_two_dropdown['values'] = options
         bolt_oil_two_dropdown['state'] = "readonly"
         bolt_oil_two_dropdown.grid(column=2, row=2)
+        bolt_oil_two_chbox_var = IntVar()
+        bolt_oil_two_chbox = Checkbutton(window_2, text="Washers?", variable=bolt_oil_two_chbox_var, onvalue=1, offvalue=0)
+        bolt_oil_two_chbox.grid(column=3, row=2)
         
         #GAS 1 DROPDOWN MENU
         bolt_gas_one_option_var = StringVar()
@@ -430,6 +465,9 @@ class ExcelToPandas():
         bolt_gas_one_dropdown['values'] = options
         bolt_gas_one_dropdown['state'] = "readonly"
         bolt_gas_one_dropdown.grid(column=2, row=3)
+        bolt_gas_one_chbox_var = IntVar()
+        bolt_gas_one_chbox = Checkbutton(window_2, text="Washers?", variable=bolt_gas_one_chbox_var, onvalue=1, offvalue=0)
+        bolt_gas_one_chbox.grid(column=3, row=3)
         
         #GAS 2 DROPDOWN MENU
         bolt_gas_two_option_var = StringVar()
@@ -438,6 +476,9 @@ class ExcelToPandas():
         bolt_gas_two_dropdown['values'] = options
         bolt_gas_two_dropdown['state'] = "readonly"
         bolt_gas_two_dropdown.grid(column=2, row=4)
+        bolt_gas_two_chbox_var = IntVar()
+        bolt_gas_two_chbox = Checkbutton(window_2, text="Washers?", variable=bolt_gas_two_chbox_var, onvalue=1, offvalue=0)
+        bolt_gas_two_chbox.grid(column=3, row=4)        
         
         #CW DROPDOWN MENU
         bolt_cw_option_var = StringVar()
@@ -446,6 +487,9 @@ class ExcelToPandas():
         bolt_cw_dropdown['values'] = options
         bolt_cw_dropdown['state'] = "readonly"
         bolt_cw_dropdown.grid(column=2, row=5)
+        bolt_cw_chbox_var = IntVar()
+        bolt_cw_chbox = Checkbutton(window_2, text="Washers?", variable=bolt_cw_chbox_var, onvalue=1, offvalue=0)
+        bolt_cw_chbox.grid(column=3, row=5)
         
         #Isolating DROPDOWN MENU
         bolt_isolating_option_var = StringVar()
@@ -454,6 +498,9 @@ class ExcelToPandas():
         bolt_isolating_dropdown['values'] = options
         bolt_isolating_dropdown['state'] = "readonly"
         bolt_isolating_dropdown.grid(column=2, row=6)
+        bolt_isolating_chbox_var = IntVar()
+        bolt_isolating_chbox = Checkbutton(window_2, text="Washers?", variable=bolt_isolating_chbox_var, onvalue=1, offvalue=0)
+        bolt_isolating_chbox.grid(column=3, row=6)
         
         #Seal DROPDOWN MENU
         bolt_seal_option_var = StringVar()
@@ -462,6 +509,9 @@ class ExcelToPandas():
         bolt_seal_dropdown['values'] = options
         bolt_seal_dropdown['state'] = "readonly"
         bolt_seal_dropdown.grid(column=2, row=8)
+        bolt_seal_chbox_var = IntVar()
+        bolt_seal_chbox = Checkbutton(window_2, text="Washers?", variable=bolt_seal_chbox_var, onvalue=1, offvalue=0)
+        bolt_seal_chbox.grid(column=3, row=8)
         
         #Condensate DROPDOWN MENU
         bolt_condensate_option_var = StringVar()
@@ -470,6 +520,9 @@ class ExcelToPandas():
         bolt_condensate_dropdown['values'] = options
         bolt_condensate_dropdown['state'] = "readonly"
         bolt_condensate_dropdown.grid(column=2, row=7)
+        bolt_condensate_chbox_var = IntVar()
+        bolt_condensate_chbox = Checkbutton(window_2, text="Washers?", variable=bolt_condensate_chbox_var, onvalue=1, offvalue=0)
+        bolt_condensate_chbox.grid(column=3, row=7)
         
         #Labels
         prompt_text = ttk.Label(window_2, text="Please select material types: ")
@@ -485,7 +538,7 @@ class ExcelToPandas():
         condensate_text = ttk.Label(window_2, text="Condensate Type: ")
         seal_text = ttk.Label(window_2, text="Seal Type: ")
                 
-        a_text = ttk.Label(window_2, text="A = SS inner CS outer (Non-Asbestos Filler) \nB = SS inner SS outer (Non-Asbestos Filler) \nC = SS inner CS outer Low Stress (Graphite Filler) \nD = SS inner CS outer (Graphite Filler)\nE = SS inner SS outer (Graphite Filler)\nF = 304 SS inner SS outer (Graphite Filler)\nG = SS inner SS outer (Teflon Filler)\nJ = SS inner, SS outer (RPTFE Filler)\nK = SS inner, CS outer (RPTFE Filler)\nL = Kamprofile 316L metal core & integral center ring/graphite covering layer\nM = Super Duplex SS inner, Super Duplex SS outer (Graphite Filler)\nN = Duplex SS inner, Duplex SS outer (Graphite Filler)\nP = Alloy 625 inner, Alloy 625 outer (Graphite Filler)\nS = Lamons Inhibitor Gasket (API6FB)\nT = UNS N08825 - 150 BHN\nX = Bolt Grade and Coating to Contract Specific Instruction SCW-FCS", justify="left")
+        sw_text = ttk.Label(window_2, text="A = SS inner CS outer (Non-Asbestos Filler) \nB = SS inner SS outer (Non-Asbestos Filler) \nC = SS inner CS outer Low Stress (Graphite Filler) \nD = SS inner CS outer (Graphite Filler)\nE = SS inner SS outer (Graphite Filler)\nF = 304 SS inner SS outer (Graphite Filler)\nG = SS inner SS outer (Teflon Filler)\nJ = SS inner, SS outer (RPTFE Filler)\nK = SS inner, CS outer (RPTFE Filler)\nL = Kamprofile 316L metal core & integral center ring/graphite covering layer\nM = Super Duplex SS inner, Super Duplex SS outer (Graphite Filler)\nN = Duplex SS inner, Duplex SS outer (Graphite Filler)\nP = Alloy 625 inner, Alloy 625 outer (Graphite Filler)\nS = Lamons Inhibitor Gasket (API6FB)\nT = UNS N08825 - 150 BHN\nX = Bolt Grade and Coating to Contract Specific Instruction SCW-FCS", justify="left")
         b_text = ttk.Label(window_2, text="        ")
         
         prompt_text.grid(column=0, columnspan=3, row=0)
@@ -501,8 +554,8 @@ class ExcelToPandas():
         condensate_text.grid(column=0, row=7)
         seal_text.grid(column=0, row=8)
         
-        a_text.grid(column=4, row=1, rowspan=8)
-        b_text.grid(column=3, row=1)
+        sw_text.grid(column=5, row=1, rowspan=8)
+        b_text.grid(column=4, row=1)
 
     def bolt_quantity(self, merged_export):
         bolt_qty_list = []
@@ -537,22 +590,55 @@ class ExcelToPandas():
                 
             if "OIL 1" in part_numb:
                 temp_bolt_ax += BOLT_OIL_ONE_MATERIAL_CHOICE
+                if BOLT_OIL_ONE_WASHER_CHBOX == 0:
+                    test_value = bolt_length_list[-1]
+                    bolt_length_list[-1] = test_value + 0.5
+                    
             elif "OIL 2" in part_numb:
                 temp_bolt_ax += BOLT_OIL_TWO_MATERIAL_CHOICE
+                if BOLT_OIL_TWO_WASHER_CHBOX == 0:
+                    test_value = bolt_length_list[-1]
+                    bolt_length_list[-1] = test_value + 0.5
+                    
             elif "GAS 1" in part_numb:
                 temp_bolt_ax += BOLT_GAS_ONE_MATERIAL_CHOICE
+                if BOLT_GAS_ONE_WASHER_CHBOX == 0:
+                    test_value = bolt_length_list[-1]
+                    bolt_length_list[-1] = test_value + 0.5
+                    
             elif "GAS 2" in part_numb:
                 temp_bolt_ax += BOLT_GAS_TWO_MATERIAL_CHOICE
+                if BOLT_GAS_TWO_WASHER_CHBOX == 0:
+                    test_value = bolt_length_list[-1]
+                    bolt_length_list[-1] = test_value + 0.5
+                    
             elif "- CW" in part_numb:
                 temp_bolt_ax += BOLT_CW_MATERIAL_CHOICE
+                if BOLT_CW_WASHER_CHBOX == 0:
+                    test_value = bolt_length_list[-1]
+                    bolt_length_list[-1] = test_value + 0.5
+                    
             elif "- SEAL" in part_numb:
                 temp_bolt_ax += BOLT_SEAL_MATERIAL_CHOICE
+                # if BOLT_SEAL_WASHER_CHBOX == 0:
+                #     test_value = bolt_length_list[-1]
+                #     bolt_length_list[-1] = test_value + 0.5
+                    
             elif "- CONDENSATE" in part_numb:
                 temp_bolt_ax += BOLT_CONDENSATE_MATERIAL_CHOICE
+                if BOLT_CONDENSATE_WASHER_CHBOX == 0:
+                    test_value = bolt_length_list[-1]
+                    bolt_length_list[-1] = test_value + 0.5
+                    
+            elif "- ISOLATING" in part_numb:
+                temp_bolt_ax += BOLT_ISOLATING_MATERIAL_CHOICE
+                if BOLT_ISOLATING_WASHER_CHBOX == 0:
+                    test_value = bolt_length_list[-1]
+                    bolt_length_list[-1] = test_value + 0.5
             
             bolt_hpc_num.append(temp_bolt_ax)
             
         merged_export["Bolt Quanities"] = bolt_qty_list
         merged_export["Bolt Size"] = bolt_size_list
         merged_export["Bolt Length"] = bolt_length_list
-        merged_export["Bolt HPC No."] = bolt_hpc_num
+        merged_export["Bolt HCO No."] = bolt_hpc_num

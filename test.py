@@ -41,8 +41,17 @@
 # root.mainloop()
 
 
-text = "1/2in test text"
+# text = "1/2in test text"
 
-parts = text.split("in")
+# parts = text.split("in")
 
-print(parts[0])
+# print(parts[0])
+
+
+list = []
+x = 0
+value = 10
+while x < 10:
+    x += 1
+    print(list)
+    list.append(value + 10)
