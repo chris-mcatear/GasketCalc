@@ -118,8 +118,7 @@ class ExcelToPandas():
     def seal_gaskets(self):
         excel_df = pd.read_excel(self.filepath)
         seal_gaskets = excel_df[excel_df["Filename"].str.contains("SEAL", na=False)]
-        # grouped_seal_gaskets = seal_gaskets.groupby(seal_gaskets["Filename"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
-        grouped_seal_gaskets = seal_gaskets.groupby(seal_gaskets["Filename"])
+        grouped_seal_gaskets = seal_gaskets.groupby(seal_gaskets["Filename"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
         return grouped_seal_gaskets
     
     
@@ -269,8 +268,9 @@ class ExcelToPandas():
         condensate_text = ttk.Label(window_2, text="Condensate Type: ")
         seal_text = ttk.Label(window_2, text="Seal Type: ")
                 
-        a_text = ttk.Label(window_2, text="A = SS inner CS outer (Non-Asbestos Filler) \nB = SS inner SS outer (Non-Asbestos Filler) \nC = SS inner CS outer Low Stress (Graphite Filler) \nD = SS inner CS outer (Graphite Filler)\nE = SS inner SS outer (Graphite Filler)\nF = 304 SS inner SS outer (Graphite Filler)\nG = SS inner SS outer (Teflon Filler)\nJ = SS inner, SS outer (RPTFE Filler)\nK = SS inner, CS outer (RPTFE Filler)\nL = Kamprofile 316L metal core & integral center ring/graphite covering layer\nM = Super Duplex SS inner, Super Duplex SS outer (Graphite Filler)\nN = Duplex SS inner, Duplex SS outer (Graphite Filler)\nP = Alloy 625 inner, Alloy 625 outer (Graphite Filler)\nS = Lamons Inhibitor Gasket (API6FB)\nT = UNS N08825 - 150 BHN\nX = Bolt Grade and Coating to Contract Specific Instruction SCW-FCS", justify="left")
+        sw_text = ttk.Label(window_2, text="A = SS inner CS outer (Non-Asbestos Filler) \nB = SS inner SS outer (Non-Asbestos Filler) \nC = SS inner CS outer Low Stress (Graphite Filler) \nD = SS inner CS outer (Graphite Filler)\nE = SS inner SS outer (Graphite Filler)\nF = 304 SS inner SS outer (Graphite Filler)\nG = SS inner SS outer (Teflon Filler)\nJ = SS inner, SS outer (RPTFE Filler)\nK = SS inner, CS outer (RPTFE Filler)\nL = Kamprofile 316L metal core & integral center ring/graphite covering layer\nM = Super Duplex SS inner, Super Duplex SS outer (Graphite Filler)\nN = Duplex SS inner, Duplex SS outer (Graphite Filler)\nP = Alloy 625 inner, Alloy 625 outer (Graphite Filler)\nS = Lamons Inhibitor Gasket (API6FB)\nT = UNS N08825 - 150 BHN\nX = Bolt Grade and Coating to Contract Specific Instruction SCW-FCS", justify="left")
         b_text = ttk.Label(window_2, text="        ")
+        cnaf_text=ttk.Label(window_2, text="A = CAF Substitute i.e. Novous Supra \nB = Graphite Metal Laminate \nC = \nD = Grade X Graphited KLINGERSIL C-4500 \nE = Grade X Non-Graphited KLINGERSIL C-4430")
         
         prompt_text.grid(column=0, columnspan=3, row=0)
         okay_button.grid(column=5, row=100)
@@ -285,8 +285,9 @@ class ExcelToPandas():
         condensate_text.grid(column=0, row=7)
         seal_text.grid(column=0, row=8)
         
-        a_text.grid(column=4, row=1, rowspan=8)
-        b_text.grid(column=3, row=1)
+        sw_text.grid(column=4, row=1, rowspan=8, padx=5)
+        # b_text.grid(column=3, row=1)
+        cnaf_text.grid(column=5, row=1, rowspan=4, padx=5)
 
 
     def ax_number_column(self, merged_export):
@@ -434,6 +435,8 @@ class ExcelToPandas():
                    "S",
                    "T",
                    "U",
+                   "V",
+                   "W",
                    "X",]
         
         #OIL 1 DROPDOWN MENU
@@ -538,7 +541,7 @@ class ExcelToPandas():
         condensate_text = ttk.Label(window_2, text="Condensate Type: ")
         seal_text = ttk.Label(window_2, text="Seal Type: ")
                 
-        sw_text = ttk.Label(window_2, text="A = SS inner CS outer (Non-Asbestos Filler) \nB = SS inner SS outer (Non-Asbestos Filler) \nC = SS inner CS outer Low Stress (Graphite Filler) \nD = SS inner CS outer (Graphite Filler)\nE = SS inner SS outer (Graphite Filler)\nF = 304 SS inner SS outer (Graphite Filler)\nG = SS inner SS outer (Teflon Filler)\nJ = SS inner, SS outer (RPTFE Filler)\nK = SS inner, CS outer (RPTFE Filler)\nL = Kamprofile 316L metal core & integral center ring/graphite covering layer\nM = Super Duplex SS inner, Super Duplex SS outer (Graphite Filler)\nN = Duplex SS inner, Duplex SS outer (Graphite Filler)\nP = Alloy 625 inner, Alloy 625 outer (Graphite Filler)\nS = Lamons Inhibitor Gasket (API6FB)\nT = UNS N08825 - 150 BHN\nX = Bolt Grade and Coating to Contract Specific Instruction SCW-FCS", justify="left")
+        bolt_text = ttk.Label(window_2, text="A = ASTM A193-B7 Studbolt, ASTM A194-2H Nuts, Zinc Plated \nB = ASTM A320 L7M Studbolt, ASTM A194 7M(S3) Nuts, Galvanised and Centrifuged to ISO 1461 \nC = ASTM A193-B8M Studbolt, ASTM A194-B8 Nuts, Stainless Steel \nD = ASTM A193-B7 Studbolt, ASTM A194-2H Nuts, Hot Dip Galvanised to ASTM A153 and A143\nE = ASTM A193-B7 Studbolt, ASTM A194-2H Nuts, Cadmium Plated ASTM A165 and Bichromatised Yellow ASTM B201\nF = ASTM A193-B7 Studbolt, ASTM A194-2H Nuts, Cadmium Plated ASTM A165 and Bichromatised Yellow ASTM B201\nG = ASTM A193 B7M Studbolt, ASTM A194 2HM Nuts, Double Spun Galvanised to ASTM A153/A153M\nH = ASTM A193-B8M Studbolt, ASTM A194-B8 Nuts, Stainless Steel \nJ = ASTM A193-B7 Studbolt, ASTM A194-2H Nuts, Xylan 1070 Coated (Colour Blue)\nK = ASTM A193-B7M Studbolt, ASTM A194-2HM Nuts, Zinc Plated / Xylan 1070 Coated\nL = ASTM A193-B7M Studbolt, ASTM A194-2HM Nuts, Zinc Plated / Xylan 1070 Coated (Colour Blue)\nM = ASTM A193-B7 Studbolt, ASTM A194-2H Nuts, Carbon Steel - Black (Uncoated)\nN = ASTM A193-B8 Cl2 Studbolt, ASTM A194-B8 Nuts, Stainless Steel - Grade 304\nP = ASTM A193-B7 Studbolt, ASTM A194-2H Nuts, Spun Galvanised to BS7371 Part 6\nR = ASTM A193-B7 Studbolt, ASTM A194-2H Nuts, Zinc Plated / Xylan 1070 Coated \nS = Inconel 718 A1014-N07718 w/2 Heavy Hex Nuts, B1.1, NACE MR0175 / ISO 15156\nT = Super Duplex SS (S32760) W/2 Heavy Hex Nuts, B1.1, NACE MR0175 / ISO 15156 \nU = Refer to Quality Plan for Specification \nV= ASTM A193-B7M Studbolt, ASTM A194-HM Cermet Flouropolymer Coated W/2 Heavy Hex Nuts, B1.1, NACE MR0175 / ISO 15156 \nW = Refer to Quality Plan for Inspection\nX = Bolt Grade and Coating to Contract Specific Instruction SCW-FCS", justify="left")
         b_text = ttk.Label(window_2, text="        ")
         
         prompt_text.grid(column=0, columnspan=3, row=0)
@@ -554,7 +557,7 @@ class ExcelToPandas():
         condensate_text.grid(column=0, row=7)
         seal_text.grid(column=0, row=8)
         
-        sw_text.grid(column=5, row=1, rowspan=8)
+        bolt_text.grid(column=5, row=1, rowspan=8)
         b_text.grid(column=4, row=1)
 
     def bolt_quantity(self, merged_export):
