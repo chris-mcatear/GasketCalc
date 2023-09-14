@@ -139,7 +139,6 @@ class ExcelToPandas():
     def df_to_excel(self, merged_export):
         filetypes = (("Excel File", "*.xlsx"),)
         filename = fd.asksaveasfilename(initialdir = "/",title = "Select file",filetypes = (("Excel File", "*.xlsx"),("all files","*.*")))
-        print(type(merged_export))
         merged_export.to_excel(f'{filename}.xlsx')
         # os.system(f"start EXCEL.EXE {filename}.xlsx")
         messagebox.showinfo(title="Export Success", message="Export was Successul")
@@ -267,12 +266,16 @@ class ExcelToPandas():
         isolating_text = ttk.Label(window_2, text="Isolating Type: ")
         condensate_text = ttk.Label(window_2, text="Condensate Type: ")
         seal_text = ttk.Label(window_2, text="Seal Type: ")
+        sw_heading_text = ttk.Label(window_2, text="Socket Weld Materials")
+        cnaf_heading_text = ttk.Label(window_2, text="CNAF Material Materials")
                 
         sw_text = ttk.Label(window_2, text="A = SS inner CS outer (Non-Asbestos Filler) \nB = SS inner SS outer (Non-Asbestos Filler) \nC = SS inner CS outer Low Stress (Graphite Filler) \nD = SS inner CS outer (Graphite Filler)\nE = SS inner SS outer (Graphite Filler)\nF = 304 SS inner SS outer (Graphite Filler)\nG = SS inner SS outer (Teflon Filler)\nJ = SS inner, SS outer (RPTFE Filler)\nK = SS inner, CS outer (RPTFE Filler)\nL = Kamprofile 316L metal core & integral center ring/graphite covering layer\nM = Super Duplex SS inner, Super Duplex SS outer (Graphite Filler)\nN = Duplex SS inner, Duplex SS outer (Graphite Filler)\nP = Alloy 625 inner, Alloy 625 outer (Graphite Filler)\nS = Lamons Inhibitor Gasket (API6FB)\nT = UNS N08825 - 150 BHN\nX = Bolt Grade and Coating to Contract Specific Instruction SCW-FCS", justify="left")
         b_text = ttk.Label(window_2, text="        ")
         cnaf_text=ttk.Label(window_2, text="A = CAF Substitute i.e. Novous Supra \nB = Graphite Metal Laminate \nC = \nD = Grade X Graphited KLINGERSIL C-4500 \nE = Grade X Non-Graphited KLINGERSIL C-4430")
         
         prompt_text.grid(column=0, columnspan=3, row=0)
+        sw_heading_text.grid(column=4, row=0)
+        cnaf_heading_text.grid(column=5, row=0)
         okay_button.grid(column=5, row=100)
         oil_one_text.grid(column=0, row=1)
         # oil_one_info.grid(column=5, row=1)
@@ -287,7 +290,7 @@ class ExcelToPandas():
         
         sw_text.grid(column=4, row=1, rowspan=8, padx=5)
         # b_text.grid(column=3, row=1)
-        cnaf_text.grid(column=5, row=1, rowspan=4, padx=5)
+        cnaf_text.grid(column=5, row=1, rowspan=2, padx=5)
 
 
     def ax_number_column(self, merged_export):
@@ -380,7 +383,7 @@ class ExcelToPandas():
         window_2.minsize(height=250, width=500)
         
         def button_press():
-            print("button pressed")
+            # print("button pressed")
             # print(oil_one_dropdown.get())
             global BOLT_OIL_ONE_MATERIAL_CHOICE
             BOLT_OIL_ONE_MATERIAL_CHOICE = bolt_oil_one_dropdown.get()
@@ -398,7 +401,7 @@ class ExcelToPandas():
             BOLT_SEAL_MATERIAL_CHOICE = bolt_seal_dropdown.get()
             global BOLT_CONDENSATE_MATERIAL_CHOICE
             BOLT_CONDENSATE_MATERIAL_CHOICE = bolt_condensate_dropdown.get()
-            
+    
             global BOLT_OIL_ONE_WASHER_CHBOX
             BOLT_OIL_ONE_WASHER_CHBOX = bolt_oil_one_chbox_var.get()
             global BOLT_OIL_TWO_WASHER_CHBOX
@@ -415,8 +418,9 @@ class ExcelToPandas():
             BOLT_CONDENSATE_WASHER_CHBOX = bolt_condensate_chbox_var.get()
             global BOLT_SEAL_WASHER_CHBOX
             BOLT_SEAL_WASHER_CHBOX = bolt_seal_chbox_var.get()
-            
+        
             window_2.destroy()
+
         
         #Dropdowns 
         options = ["A", 
@@ -446,7 +450,7 @@ class ExcelToPandas():
         bolt_oil_one_dropdown['values'] = options
         bolt_oil_one_dropdown['state'] = "readonly"
         bolt_oil_one_dropdown.grid(column=2, row=1)
-        bolt_oil_one_chbox_var = IntVar()
+        bolt_oil_one_chbox_var = IntVar(window_2)
         bolt_oil_one_chbox = Checkbutton(window_2, text="Washers?", variable=bolt_oil_one_chbox_var, onvalue=1, offvalue=0)
         bolt_oil_one_chbox.grid(column=3, row=1)
         
@@ -457,7 +461,7 @@ class ExcelToPandas():
         bolt_oil_two_dropdown['values'] = options
         bolt_oil_two_dropdown['state'] = "readonly"
         bolt_oil_two_dropdown.grid(column=2, row=2)
-        bolt_oil_two_chbox_var = IntVar()
+        bolt_oil_two_chbox_var = IntVar(window_2)
         bolt_oil_two_chbox = Checkbutton(window_2, text="Washers?", variable=bolt_oil_two_chbox_var, onvalue=1, offvalue=0)
         bolt_oil_two_chbox.grid(column=3, row=2)
         
@@ -468,7 +472,7 @@ class ExcelToPandas():
         bolt_gas_one_dropdown['values'] = options
         bolt_gas_one_dropdown['state'] = "readonly"
         bolt_gas_one_dropdown.grid(column=2, row=3)
-        bolt_gas_one_chbox_var = IntVar()
+        bolt_gas_one_chbox_var = IntVar(window_2)
         bolt_gas_one_chbox = Checkbutton(window_2, text="Washers?", variable=bolt_gas_one_chbox_var, onvalue=1, offvalue=0)
         bolt_gas_one_chbox.grid(column=3, row=3)
         
@@ -479,7 +483,7 @@ class ExcelToPandas():
         bolt_gas_two_dropdown['values'] = options
         bolt_gas_two_dropdown['state'] = "readonly"
         bolt_gas_two_dropdown.grid(column=2, row=4)
-        bolt_gas_two_chbox_var = IntVar()
+        bolt_gas_two_chbox_var = IntVar(window_2)
         bolt_gas_two_chbox = Checkbutton(window_2, text="Washers?", variable=bolt_gas_two_chbox_var, onvalue=1, offvalue=0)
         bolt_gas_two_chbox.grid(column=3, row=4)        
         
@@ -490,7 +494,7 @@ class ExcelToPandas():
         bolt_cw_dropdown['values'] = options
         bolt_cw_dropdown['state'] = "readonly"
         bolt_cw_dropdown.grid(column=2, row=5)
-        bolt_cw_chbox_var = IntVar()
+        bolt_cw_chbox_var = IntVar(window_2)
         bolt_cw_chbox = Checkbutton(window_2, text="Washers?", variable=bolt_cw_chbox_var, onvalue=1, offvalue=0)
         bolt_cw_chbox.grid(column=3, row=5)
         
@@ -501,7 +505,7 @@ class ExcelToPandas():
         bolt_isolating_dropdown['values'] = options
         bolt_isolating_dropdown['state'] = "readonly"
         bolt_isolating_dropdown.grid(column=2, row=6)
-        bolt_isolating_chbox_var = IntVar()
+        bolt_isolating_chbox_var = IntVar(window_2)
         bolt_isolating_chbox = Checkbutton(window_2, text="Washers?", variable=bolt_isolating_chbox_var, onvalue=1, offvalue=0)
         bolt_isolating_chbox.grid(column=3, row=6)
         
@@ -512,7 +516,7 @@ class ExcelToPandas():
         bolt_seal_dropdown['values'] = options
         bolt_seal_dropdown['state'] = "readonly"
         bolt_seal_dropdown.grid(column=2, row=8)
-        bolt_seal_chbox_var = IntVar()
+        bolt_seal_chbox_var = IntVar(window_2)
         bolt_seal_chbox = Checkbutton(window_2, text="Washers?", variable=bolt_seal_chbox_var, onvalue=1, offvalue=0)
         bolt_seal_chbox.grid(column=3, row=8)
         
@@ -523,7 +527,7 @@ class ExcelToPandas():
         bolt_condensate_dropdown['values'] = options
         bolt_condensate_dropdown['state'] = "readonly"
         bolt_condensate_dropdown.grid(column=2, row=7)
-        bolt_condensate_chbox_var = IntVar()
+        bolt_condensate_chbox_var = IntVar(window_2)
         bolt_condensate_chbox = Checkbutton(window_2, text="Washers?", variable=bolt_condensate_chbox_var, onvalue=1, offvalue=0)
         bolt_condensate_chbox.grid(column=3, row=7)
         
@@ -593,51 +597,51 @@ class ExcelToPandas():
                 
             if "OIL 1" in part_numb:
                 temp_bolt_ax += BOLT_OIL_ONE_MATERIAL_CHOICE
-                if BOLT_OIL_ONE_WASHER_CHBOX == 0:
+                if BOLT_OIL_ONE_WASHER_CHBOX > 0:
                     test_value = bolt_length_list[-1]
-                    bolt_length_list[-1] = test_value + 0.5
+                    bolt_length_list[-1] = test_value + 0.25
                     
             elif "OIL 2" in part_numb:
                 temp_bolt_ax += BOLT_OIL_TWO_MATERIAL_CHOICE
-                if BOLT_OIL_TWO_WASHER_CHBOX == 0:
+                if BOLT_OIL_TWO_WASHER_CHBOX > 0:
                     test_value = bolt_length_list[-1]
-                    bolt_length_list[-1] = test_value + 0.5
+                    bolt_length_list[-1] = test_value + 0.25
                     
             elif "GAS 1" in part_numb:
                 temp_bolt_ax += BOLT_GAS_ONE_MATERIAL_CHOICE
-                if BOLT_GAS_ONE_WASHER_CHBOX == 0:
+                if BOLT_GAS_ONE_WASHER_CHBOX > 0:
                     test_value = bolt_length_list[-1]
-                    bolt_length_list[-1] = test_value + 0.5
+                    bolt_length_list[-1] = test_value + 0.25
                     
             elif "GAS 2" in part_numb:
                 temp_bolt_ax += BOLT_GAS_TWO_MATERIAL_CHOICE
-                if BOLT_GAS_TWO_WASHER_CHBOX == 0:
+                if BOLT_GAS_TWO_WASHER_CHBOX > 0:
                     test_value = bolt_length_list[-1]
-                    bolt_length_list[-1] = test_value + 0.5
+                    bolt_length_list[-1] = test_value + 0.25
                     
             elif "- CW" in part_numb:
                 temp_bolt_ax += BOLT_CW_MATERIAL_CHOICE
-                if BOLT_CW_WASHER_CHBOX == 0:
+                if BOLT_CW_WASHER_CHBOX > 0:
                     test_value = bolt_length_list[-1]
-                    bolt_length_list[-1] = test_value + 0.5
+                    bolt_length_list[-1] = test_value + 0.25
                     
             elif "- SEAL" in part_numb:
                 temp_bolt_ax += BOLT_SEAL_MATERIAL_CHOICE
-                # if BOLT_SEAL_WASHER_CHBOX == 0:
-                #     test_value = bolt_length_list[-1]
-                #     bolt_length_list[-1] = test_value + 0.5
+                if BOLT_SEAL_WASHER_CHBOX > 0:
+                    test_value = bolt_length_list[-1]
+                    bolt_length_list[-1] = test_value + 0.25
                     
             elif "- CONDENSATE" in part_numb:
                 temp_bolt_ax += BOLT_CONDENSATE_MATERIAL_CHOICE
-                if BOLT_CONDENSATE_WASHER_CHBOX == 0:
+                if BOLT_CONDENSATE_WASHER_CHBOX > 0:
                     test_value = bolt_length_list[-1]
-                    bolt_length_list[-1] = test_value + 0.5
+                    bolt_length_list[-1] = test_value + 0.25
                     
             elif "- ISOLATING" in part_numb:
                 temp_bolt_ax += BOLT_ISOLATING_MATERIAL_CHOICE
-                if BOLT_ISOLATING_WASHER_CHBOX == 0:
+                if BOLT_ISOLATING_WASHER_CHBOX > 0:
                     test_value = bolt_length_list[-1]
-                    bolt_length_list[-1] = test_value + 0.5
+                    bolt_length_list[-1] = test_value + 0.25
             
             bolt_hpc_num.append(temp_bolt_ax)
             

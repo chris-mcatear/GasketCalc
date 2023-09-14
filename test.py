@@ -48,10 +48,39 @@
 # print(parts[0])
 
 
-list = []
-x = 0
-value = 10
-while x < 10:
-    x += 1
-    print(list)
-    list.append(value + 10)
+# list = []
+# x = 0
+# value = 10
+# while x < 10:
+#     x += 1
+#     print(list)
+#     list.append(value + 10)
+
+
+from tkinter import *
+
+# Create an instance of Tkinter frame
+win = Tk()
+
+# Define empty variables
+var1 = IntVar()
+var2 = IntVar()
+
+# Function to display the input value
+def display_input():
+    print("Input for Python:", var1.get())
+    print("Input for C++:", var2.get())
+
+# Define a Checkbox
+t1 = Checkbutton(win, text="Python", variable=var1, onvalue=1, offvalue=0)
+t1.pack()
+t2 = Checkbutton(win, text="C++", variable=var2, onvalue=1, offvalue=0)
+t2.pack()
+
+
+
+# Create a button to trigger the display_input function
+button = Button(win, text="Get Values", command=display_input)
+button.pack()
+
+win.mainloop()

@@ -14,11 +14,13 @@ from pandastable import *
 
 #Define window
 window = tk.Tk()
-window.title('Gaskets & Bolts Calculator - BETA 1.1')
+window.title('Gaskets & Bolts Calculator - BETA 1.2')
 # window.resizable(False, False)
 # window.geometry("1000x150")
 window.config(padx=25, pady=25)
 window.minsize(height=500)
+# icon = tk.PhotoImage(file="bolt.ico")
+# window.iconphoto(True, icon)
 
 etop = ExcelToPandas()
 MATERIAL_CHOSEN = False
@@ -45,22 +47,13 @@ def browsefunc():
 def calculatefunc():
     """Usage: calculatefunc(input) / Will take input of file path and pass to pandas to interperetation, pandas to return details to display() function for displaying information."""  
     oil_1_gaskets, oil_2_gaskets = etop.oil_gaskets()
-    print(type(oil_1_gaskets))
-    print(type(oil_2_gaskets))
     gas_1_gaskets, gas_2_gaskets = etop.gas_gaskets()
-    print(type(gas_1_gaskets))
-    print(type(gas_2_gaskets))
     cw_gaskets = etop.water_gaskets()
-    print(type(cw_gaskets))
     seal_gaskets = etop.seal_gaskets()
-    print(type(seal_gaskets))
     isolating_gaskets = etop.isolating_gaskets()
-    print(type(isolating_gaskets))
     condensate_gaskets = etop.condensate_gaskets()
-    print(type(condensate_gaskets))
 
     merged_gaskets_master = [gas_1_gaskets, gas_2_gaskets, oil_1_gaskets, oil_2_gaskets, cw_gaskets, seal_gaskets, isolating_gaskets, condensate_gaskets]
-    print(type(merged_gaskets_master))
     final_grouping = pd.concat(merged_gaskets_master)
     return final_grouping
    
