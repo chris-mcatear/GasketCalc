@@ -7,7 +7,7 @@ from tkinter import messagebox
 import pandas as pd
 from openpyxl import *
 from xlsxwriter import *
-from flange_info import onefifty_flange_dict, threehundred_flange_dict
+from flange_info import onefifty_flange_dict, threehundred_flange_dict, sixhundred_flange_dict
 
 END_RESULT_DF = pd.DataFrame()
 
@@ -117,8 +117,9 @@ class ExcelToPandas():
     
     def seal_gaskets(self):
         excel_df = pd.read_excel(self.filepath)
-        seal_gaskets = excel_df[excel_df["Filename"].str.contains("SEAL", na=False)]
+        seal_gaskets = excel_df[excel_df["Filename"].str.contains("- SEAL", na=False)]
         grouped_seal_gaskets = seal_gaskets.groupby(seal_gaskets["Filename"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
+        grouped_seal_gaskets['Description'] = grouped_seal_gaskets['Description'].apply(lambda x: x.split('&&&')[0])
         return grouped_seal_gaskets
     
     
@@ -371,6 +372,8 @@ class ExcelToPandas():
                 temp_ax += SEAL_MATERIAL_CHOICE
             elif "- CONDENSATE" in part_numb:
                 temp_ax += CONDENSATE_MATERIAL_CHOICE
+            elif "- ISOLATING" or "- CONDENSATE" or "- SEAL" or "- CW" or "GAS 2" or "GAS 1" or "OIL 1" or "OIL 2" not in description:
+                temp_ax = " SPECIAL ENTRY REQUIRED"
             
             ax_numbers_list.append(temp_ax)
             
@@ -594,6 +597,12 @@ class ExcelToPandas():
                 bolt_size_list.append(threehundred_flange_dict[size]['bolt size'])
                 bolt_length_list.append(threehundred_flange_dict[size]['bolt length'])
                 temp_bolt_ax = threehundred_flange_dict[size]['hpc_no']
+                
+            elif "#600" in description:
+                bolt_qty_list.append(flange_qty * sixhundred_flange_dict[size]['bolt count'])
+                bolt_size_list.append(sixhundred_flange_dict[size]['bolt size'])
+                bolt_length_list.append(sixhundred_flange_dict[size]['bolt length'])
+                temp_bolt_ax = sixhundred_flange_dict[size]['hpc_no']
                 
             if "OIL 1" in part_numb:
                 temp_bolt_ax += BOLT_OIL_ONE_MATERIAL_CHOICE

@@ -14,7 +14,7 @@ from pandastable import *
 
 #Define window
 window = tk.Tk()
-window.title('Gaskets & Bolts Calculator - BETA 1.2')
+window.title('Gaskets & Bolts Calculator - BETA 1.3')
 # window.resizable(False, False)
 # window.geometry("1000x150")
 window.config(padx=25, pady=25)
