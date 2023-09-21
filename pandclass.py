@@ -137,10 +137,16 @@ class ExcelToPandas():
         return grouped_condensate_gaskets
     
     
-    def df_to_excel(self, merged_export):
-        filetypes = (("Excel File", "*.xlsx"),)
+    def df_to_excel(self, merged_export, master_list, specials_list):
+        filetype = ".xlsx"
         filename = fd.asksaveasfilename(initialdir = "/",title = "Select file",filetypes = (("Excel File", "*.xlsx"),("all files","*.*")))
-        merged_export.to_excel(f'{filename}.xlsx')
+        if filetype not in filename:
+            filename += filetype
+        
+        with pd.ExcelWriter (f'{filename}') as writer:
+            merged_export.to_excel(writer, sheet_name="Serviced")
+            specials_list.to_excel(writer, sheet_name="Specials")
+            master_list.to_excel(writer, sheet_name="All Gaskets")
         # os.system(f"start EXCEL.EXE {filename}.xlsx")
         messagebox.showinfo(title="Export Success", message="Export was Successul")
         
@@ -605,52 +611,76 @@ class ExcelToPandas():
                 temp_bolt_ax = sixhundred_flange_dict[size]['hpc_no']
                 
             if "OIL 1" in part_numb:
-                temp_bolt_ax += BOLT_OIL_ONE_MATERIAL_CHOICE
-                if BOLT_OIL_ONE_WASHER_CHBOX > 0:
-                    test_value = bolt_length_list[-1]
-                    bolt_length_list[-1] = test_value + 0.25
+                if temp_bolt_ax == "NOT AVAILABLE":
+                    pass
+                else:
+                    temp_bolt_ax += BOLT_OIL_ONE_MATERIAL_CHOICE
+                    if BOLT_OIL_ONE_WASHER_CHBOX > 0:
+                        test_value = bolt_length_list[-1]
+                        bolt_length_list[-1] = test_value + 0.25
                     
             elif "OIL 2" in part_numb:
-                temp_bolt_ax += BOLT_OIL_TWO_MATERIAL_CHOICE
-                if BOLT_OIL_TWO_WASHER_CHBOX > 0:
-                    test_value = bolt_length_list[-1]
-                    bolt_length_list[-1] = test_value + 0.25
-                    
+                if temp_bolt_ax == "NOT AVAILABLE":
+                    pass
+                else:
+                    temp_bolt_ax += BOLT_OIL_TWO_MATERIAL_CHOICE
+                    if BOLT_OIL_TWO_WASHER_CHBOX > 0:
+                        test_value = bolt_length_list[-1]
+                        bolt_length_list[-1] = test_value + 0.25
+                        
             elif "GAS 1" in part_numb:
-                temp_bolt_ax += BOLT_GAS_ONE_MATERIAL_CHOICE
-                if BOLT_GAS_ONE_WASHER_CHBOX > 0:
-                    test_value = bolt_length_list[-1]
-                    bolt_length_list[-1] = test_value + 0.25
+                if temp_bolt_ax == "NOT AVAILABLE":
+                    pass
+                else:
+                    temp_bolt_ax += BOLT_GAS_ONE_MATERIAL_CHOICE
+                    if BOLT_GAS_ONE_WASHER_CHBOX > 0:
+                        test_value = bolt_length_list[-1]
+                        bolt_length_list[-1] = test_value + 0.25
                     
             elif "GAS 2" in part_numb:
-                temp_bolt_ax += BOLT_GAS_TWO_MATERIAL_CHOICE
-                if BOLT_GAS_TWO_WASHER_CHBOX > 0:
-                    test_value = bolt_length_list[-1]
-                    bolt_length_list[-1] = test_value + 0.25
+                if temp_bolt_ax == "NOT AVAILABLE":
+                    pass
+                else:
+                    temp_bolt_ax += BOLT_GAS_TWO_MATERIAL_CHOICE
+                    if BOLT_GAS_TWO_WASHER_CHBOX > 0:
+                        test_value = bolt_length_list[-1]
+                        bolt_length_list[-1] = test_value + 0.25
                     
             elif "- CW" in part_numb:
-                temp_bolt_ax += BOLT_CW_MATERIAL_CHOICE
-                if BOLT_CW_WASHER_CHBOX > 0:
-                    test_value = bolt_length_list[-1]
-                    bolt_length_list[-1] = test_value + 0.25
+                if temp_bolt_ax == "NOT AVAILABLE":
+                    pass
+                else:
+                    temp_bolt_ax += BOLT_CW_MATERIAL_CHOICE
+                    if BOLT_CW_WASHER_CHBOX > 0:
+                        test_value = bolt_length_list[-1]
+                        bolt_length_list[-1] = test_value + 0.25
                     
             elif "- SEAL" in part_numb:
-                temp_bolt_ax += BOLT_SEAL_MATERIAL_CHOICE
-                if BOLT_SEAL_WASHER_CHBOX > 0:
-                    test_value = bolt_length_list[-1]
-                    bolt_length_list[-1] = test_value + 0.25
+                if temp_bolt_ax == "NOT AVAILABLE":
+                    pass
+                else:
+                    temp_bolt_ax += BOLT_SEAL_MATERIAL_CHOICE
+                    if BOLT_SEAL_WASHER_CHBOX > 0:
+                        test_value = bolt_length_list[-1]
+                        bolt_length_list[-1] = test_value + 0.25
                     
             elif "- CONDENSATE" in part_numb:
-                temp_bolt_ax += BOLT_CONDENSATE_MATERIAL_CHOICE
-                if BOLT_CONDENSATE_WASHER_CHBOX > 0:
-                    test_value = bolt_length_list[-1]
-                    bolt_length_list[-1] = test_value + 0.25
+                if temp_bolt_ax == "NOT AVAILABLE":
+                    pass
+                else:
+                    temp_bolt_ax += BOLT_CONDENSATE_MATERIAL_CHOICE
+                    if BOLT_CONDENSATE_WASHER_CHBOX > 0:
+                        test_value = bolt_length_list[-1]
+                        bolt_length_list[-1] = test_value + 0.25
                     
             elif "- ISOLATING" in part_numb:
-                temp_bolt_ax += BOLT_ISOLATING_MATERIAL_CHOICE
-                if BOLT_ISOLATING_WASHER_CHBOX > 0:
-                    test_value = bolt_length_list[-1]
-                    bolt_length_list[-1] = test_value + 0.25
+                if temp_bolt_ax == "NOT AVAILABLE":
+                    pass
+                else:
+                    temp_bolt_ax += BOLT_ISOLATING_MATERIAL_CHOICE
+                    if BOLT_ISOLATING_WASHER_CHBOX > 0:
+                        test_value = bolt_length_list[-1]
+                        bolt_length_list[-1] = test_value + 0.25
             
             bolt_hpc_num.append(temp_bolt_ax)
             
@@ -658,3 +688,8 @@ class ExcelToPandas():
         merged_export["Bolt Size"] = bolt_size_list
         merged_export["Bolt Length"] = bolt_length_list
         merged_export["Bolt HCO No."] = bolt_hpc_num
+        
+        # merged_export["Bolt Quanities"] = pd.Series(bolt_qty_list).fillna(0)
+        # merged_export["Bolt Size"] = pd.Series(bolt_size_list).fillna(0)
+        # merged_export["Bolt Length"] = pd.Series(bolt_length_list).fillna(0)
+        # merged_export["Bolt HCO No."] = pd.Series(bolt_hpc_num).fillna(0)

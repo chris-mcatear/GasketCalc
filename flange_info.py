@@ -30,7 +30,7 @@ threehundred_flange_dict = {
         "bolt count": 4,
         "bolt length": 3.5, 
         "bolt size": '5/8" UNC',
-        "hpc_no": "NOT AVAILABLE"
+        "hpc_no": "HI0905089"
     },
         '1 1/2' : { 
         "pipe size": '1 1/2"',
@@ -65,7 +65,7 @@ threehundred_flange_dict = {
         "bolt count": 8,
         "bolt length": 4.25, 
         "bolt size": '3/4" UNC',
-        "hpc_no": "NOT AVAILABLE"
+        "hpc_no": "HI0906108"
     },
         '4' : { 
         "pipe size": '4"',
@@ -79,7 +79,7 @@ threehundred_flange_dict = {
         "bolt count": 8,
         "bolt length": 4.75, 
         "bolt size": '3/4" UNC',
-        "hpc_no": "NOT AVAILABLE"
+        "hpc_no": "HI0906121"
     },
         '6' : { 
         "pipe size": '6"',
@@ -142,7 +142,7 @@ threehundred_flange_dict = {
         "bolt count": 24,
         "bolt length": 9.0, 
         "bolt size": '1 1/2" UNC',
-        "hpc_no": "NOT AVAILABLE"
+        "hpc_no": "HI0912229"
     },
         '24' : { 
         "pipe size": '24"',
@@ -174,14 +174,14 @@ onefifty_flange_dict = {
         "bolt count": 4,
         "bolt length": 2.5, 
         "bolt size": '1/2" UNC',
-        "hpc_no": "HI094064"
+        "hpc_no": "HI0904064"
     },
         '1 1/4' : { 
         "pipe size": '1 1/4"',
         "bolt count": 4,
         "bolt length": 2.75, 
         "bolt size": '1/2" UNC',
-        "hpc_no": "NOT AVAILABLE"
+        "hpc_no": "HI0904070"
     },
         '1 1/2' : { 
         "pipe size": '1 1/2"',
@@ -216,7 +216,7 @@ onefifty_flange_dict = {
         "bolt count": 8,
         "bolt length": 3.5, 
         "bolt size": '5/8" UNC',
-        "hpc_no": "NOT AVAILABLE"
+        "hpc_no": "HI0905089"
     },
         '4' : { 
         "pipe size": '4"',
@@ -230,7 +230,7 @@ onefifty_flange_dict = {
         "bolt count": 8,
         "bolt length": 3.75, 
         "bolt size": '3/4" UNC',
-        "hpc_no": "NOT AVAILABLE"
+        "hpc_no": "HI0906095"
     },
         '6' : { 
         "pipe size": '6"',
@@ -293,7 +293,7 @@ onefifty_flange_dict = {
         "bolt count": 20,
         "bolt length": 6.75, 
         "bolt size": '1 1/4" UNC',
-        "hpc_no": "NOT AVAILABLE"
+        "hpc_no": "HI0910171"
     },
         '24' : { 
         "pipe size": '24"',
@@ -366,7 +366,7 @@ sixhundred_flange_dict ={
         "bolt count": 8,
         "bolt length": 5.5, 
         "bolt size": '7/8" UNC',
-        "hpc_no": "NOT AVAILABLE"
+        "hpc_no": "HI0907140"
     },
         '4' : { 
         "pipe size": '4"',
@@ -380,7 +380,7 @@ sixhundred_flange_dict ={
         "bolt count": 8,
         "bolt length": 6.5, 
         "bolt size": '1" UNC',
-        "hpc_no": "NOT AVAILABLE"
+        "hpc_no": "HI0908165"
     },
         '6' : { 
         "pipe size": '6"',
@@ -443,7 +443,7 @@ sixhundred_flange_dict ={
         "bolt count": 24,
         "bolt length": 13, 
         "bolt size": '1 7/8" UNC',
-        "hpc_no": "NOT AVAILABLE"
+        "hpc_no": "HI0910171"
     },
         '24' : { 
         "pipe size": '24"',

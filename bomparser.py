@@ -10,6 +10,7 @@ import pandas as pd
 from pandclass import *
 import pandastable as pt
 from pandastable import *
+from sparesclass import *
 
 
 #Define window
@@ -23,6 +24,7 @@ window.minsize(height=500)
 # window.iconphoto(True, icon)
 
 etop = ExcelToPandas()
+s_splitter = SpareSplitter()
 MATERIAL_CHOSEN = False
 
 
@@ -33,6 +35,7 @@ def browsefunc():
         pass
     else:
         etop.filepath = filename
+        s_splitter.filename = filename
         filepathtext.config(text=filename)
         
         if len(filename) > 0:
@@ -40,7 +43,7 @@ def browsefunc():
                 file_approved.config(text="File Valid!", foreground="#11a713")
                 material_window_button.config(state=NORMAL)
             else:
-                file_approved.config(text="File Not Valid! Double check BoM follows order of: Item, Part Number, QTY, Description.", foreground="#f00")
+                file_approved.config(text="File Not Valid! Double check BoM follows order of: Item, Filename, QTY, Description.", foreground="#f00")
                 material_window_button.config(state=DISABLED)
 
 
@@ -60,9 +63,11 @@ def calculatefunc():
     
 def export_to_excel():
     merged_export = calculatefunc()
+    master_list = s_splitter.master_list()
+    specials_list = s_splitter.specials_list(master_list)
     etop.ax_number_column(merged_export)
     etop.bolt_quantity(merged_export)
-    etop.df_to_excel(merged_export)
+    etop.df_to_excel(merged_export, master_list, specials_list)
 
 
 def issues_window():
