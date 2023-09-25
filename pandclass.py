@@ -8,6 +8,7 @@ import pandas as pd
 from openpyxl import *
 from xlsxwriter import *
 from flange_info import onefifty_flange_dict, threehundred_flange_dict, sixhundred_flange_dict
+import os
 
 END_RESULT_DF = pd.DataFrame()
 
@@ -147,8 +148,10 @@ class ExcelToPandas():
             merged_export.to_excel(writer, sheet_name="Serviced")
             specials_list.to_excel(writer, sheet_name="Specials")
             master_list.to_excel(writer, sheet_name="All Gaskets")
-        # os.system(f"start EXCEL.EXE {filename}.xlsx")
-        messagebox.showinfo(title="Export Success", message="Export was Successul")
+        # os.system(f"start EXCEL.EXE {filename}")
+        os.startfile(filename)
+        messagebox.showinfo(title="Export Success", message="Export was Successful")
+        print(filename)
         
         
     def material_types(self):
