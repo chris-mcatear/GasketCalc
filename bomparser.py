@@ -11,11 +11,18 @@ from pandclass import *
 import pandastable as pt
 from pandastable import *
 from sparesclass import *
+from updateclass import *
 
+etop = ExcelToPandas()
+s_splitter = SpareSplitter()
+UpdateChecker = CheckforUpdate()
+
+current_version = "BETA_1.4"
+release_version = UpdateChecker.updatechecker()
 
 #Define window
 window = tk.Tk()
-window.title('Gaskets & Bolts Calculator - BETA 1.3')
+window.title(f'Gaskets & Bolts Calculator - {current_version}')
 # window.resizable(False, False)
 # window.geometry("1000x150")
 window.config(padx=25, pady=25)
@@ -23,10 +30,7 @@ window.minsize(height=500)
 # icon = tk.PhotoImage(file="bolt.ico")
 # window.iconphoto(True, icon)
 
-etop = ExcelToPandas()
-s_splitter = SpareSplitter()
 MATERIAL_CHOSEN = False
-
 
 def browsefunc():
     filetypes = (("Excel File", "*.xlsx"),)
@@ -108,6 +112,7 @@ material_window_button["state"] = tk.DISABLED
 bolt_material_window_button = ttk.Button(text="Bolt Materials", command=bolt_material_chooser)
 bolt_material_window_button["state"] = tk.DISABLED
 contact_button = ttk.Button(text="Got a Problem?", command=issues_window)
+version_text = ttk.Label(text=f"This version: {current_version} \nCurrent release version: {release_version}")
 
 
 # Content Layout in window
@@ -123,6 +128,11 @@ export_button.grid(column=3, row=0)
 material_window_button.grid(column=1, row=0)
 bolt_material_window_button.grid(column=2, row=0)
 contact_button.grid(column=1, row=5, columnspan=2, pady=10)
+#version_text.grid(column=1, row=10)
+
+if current_version != release_version:
+    messagebox.showinfo(title="Update Available", 
+                        message=f"This version is out of date, please check the release page for updated versions.\nThis Version: {current_version}\nUpdated Version: {release_version}")
 
 
 window.mainloop()
