@@ -17,16 +17,23 @@ etop = ExcelToPandas()
 s_splitter = SpareSplitter()
 UpdateChecker = CheckforUpdate()
 
-current_version = "BETA_1.4"
+current_version = "v1"
 release_version = UpdateChecker.updatechecker()
+
 
 #Define window
 window = tk.Tk()
 window.title(f'Gaskets & Bolts Calculator - {current_version}')
 # window.resizable(False, False)
-# window.geometry("1000x150")
+window_width = 550
+s_width = window.winfo_screenwidth()
+s_width_loc = (s_width/2)-(window_width/2)
+window_height = 225
+s_height = window.winfo_screenheight()
+s_height_loc = (s_height/2)-(window_height/2)
+window.geometry("%dx%d+%d+%d" % (window_width, window_height, s_width_loc, s_height_loc))
 window.config(padx=25, pady=25)
-window.minsize(height=500)
+# window.minsize(height=500)
 # icon = tk.PhotoImage(file="bolt.ico")
 # window.iconphoto(True, icon)
 
@@ -79,7 +86,7 @@ def issues_window():
     contact_window.title("Contact")
     
     contact_name = ttk.Label(contact_window, text="Creator: Christopher McAtear")
-    contact_email = ttk.Label(contact_window, text="Email: christopher.mcatear@howden.com")
+    contact_email = ttk.Label(contact_window, text="Email: chris.mcatear@hotmail.com")
     
     contact_name.grid(column=0, row=0, padx=25, pady=10)
     contact_email.grid(column=0, row=1, padx=25, pady=10)

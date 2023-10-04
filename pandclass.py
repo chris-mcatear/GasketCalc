@@ -148,10 +148,9 @@ class ExcelToPandas():
             merged_export.to_excel(writer, sheet_name="Serviced")
             specials_list.to_excel(writer, sheet_name="Specials")
             master_list.to_excel(writer, sheet_name="All Gaskets")
-        # os.system(f"start EXCEL.EXE {filename}")
-        os.startfile(filename)
+            
         messagebox.showinfo(title="Export Success", message="Export was Successful")
-        print(filename)
+        os.startfile(filename)
         
         
     def material_types(self):
@@ -276,7 +275,7 @@ class ExcelToPandas():
         isolating_text = ttk.Label(window_2, text="Isolating Type: ")
         condensate_text = ttk.Label(window_2, text="Condensate Type: ")
         seal_text = ttk.Label(window_2, text="Seal Type: ")
-        sw_heading_text = ttk.Label(window_2, text="Socket Weld Materials")
+        sw_heading_text = ttk.Label(window_2, text="Spiral Wound Materials")
         cnaf_heading_text = ttk.Label(window_2, text="CNAF Material Materials")
                 
         sw_text = ttk.Label(window_2, text="A = SS inner CS outer (Non-Asbestos Filler) \nB = SS inner SS outer (Non-Asbestos Filler) \nC = SS inner CS outer Low Stress (Graphite Filler) \nD = SS inner CS outer (Graphite Filler)\nE = SS inner SS outer (Graphite Filler)\nF = 304 SS inner SS outer (Graphite Filler)\nG = SS inner SS outer (Teflon Filler)\nJ = SS inner, SS outer (RPTFE Filler)\nK = SS inner, CS outer (RPTFE Filler)\nL = Kamprofile 316L metal core & integral center ring/graphite covering layer\nM = Super Duplex SS inner, Super Duplex SS outer (Graphite Filler)\nN = Duplex SS inner, Duplex SS outer (Graphite Filler)\nP = Alloy 625 inner, Alloy 625 outer (Graphite Filler)\nS = Lamons Inhibitor Gasket (API6FB)\nT = UNS N08825 - 150 BHN\nX = Bolt Grade and Coating to Contract Specific Instruction SCW-FCS", justify="left")
