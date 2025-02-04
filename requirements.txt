@@ -1,0 +1,4 @@
+openpyxl==3.1.5
+pandastable==0.13.1
+Requests==2.32.3
+xlsxwriter==3.2.2

@@ -17,7 +17,7 @@ etop = ExcelToPandas()
 s_splitter = SpareSplitter()
 UpdateChecker = CheckforUpdate()
 
-current_version = "v1"
+current_version = "v1.1a"
 release_version = UpdateChecker.updatechecker()
 
 
@@ -70,10 +70,13 @@ def calculatefunc():
     merged_gaskets_master = [gas_1_gaskets, gas_2_gaskets, oil_1_gaskets, oil_2_gaskets, cw_gaskets, seal_gaskets, isolating_gaskets, condensate_gaskets]
     final_grouping = pd.concat(merged_gaskets_master)
     return final_grouping
+    
    
     
 def export_to_excel():
     merged_export = calculatefunc()
+    # print("Merged Export:")
+    # print(merged_export)
     master_list = s_splitter.master_list()
     specials_list = s_splitter.specials_list(master_list)
     etop.ax_number_column(merged_export)

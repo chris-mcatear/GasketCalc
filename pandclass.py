@@ -8,6 +8,7 @@ import pandas as pd
 from openpyxl import *
 from xlsxwriter import *
 from flange_info import onefifty_flange_dict, threehundred_flange_dict, sixhundred_flange_dict
+from din_dict import din_dict
 import os
 
 END_RESULT_DF = pd.DataFrame()
@@ -310,6 +311,9 @@ class ExcelToPandas():
             description = row["Description"]
             part_numb = index
             temp_ax = "HI"
+            # print(part_numb)
+            # print(description)
+            # print(temp_ax)
             
             # SPIRAL OR OTHER GASKET TYPE 
             if "SPIRAL" in description:
@@ -330,40 +334,13 @@ class ExcelToPandas():
                 temp_ax += "error"
             
             # DIN PIPE SIZE (INCH SIZE x 25 ROUNDED TO NEAREST)
-            if "1 1/2'" in description:
-                temp_ax += "040"
-            elif "1/2'" in description:
-                temp_ax += "015"
-            elif "2'" in description:
-                temp_ax += "050"
-            elif "1'" in description:
-                temp_ax += "025"
-            elif "3/4'" in description:
-                temp_ax += "020"
-            elif "3'" in description:
-                temp_ax += "075"
-            elif "4'" in description:
-                temp_ax += "100"
-            elif "5'" in description:
-                temp_ax += "125"
-            elif "6'" in description:
-                temp_ax += "150"
-            elif "7'" in description:
-                temp_ax += "175"
-            elif "8'" in description:
-                temp_ax += "200"
-            elif "9'" in description:
-                temp_ax += "225"
-            elif "10'" in description:
-                temp_ax += "250"
-            elif "11'" in description:
-                temp_ax += "275"
-            elif "12'" in description:
-                temp_ax += "300"
-            elif "20'" in description:
-                temp_ax += "500"
-            elif "24'" in description:
-                temp_ax += "600"
+            temp_desc = description.split("'", 1)
+            if temp_desc[0] in din_dict:
+                temp_ax += din_dict[temp_desc[0]]["DIN"]
+            else: 
+                temp_ax += f"no {description[0:2]} size found in DIN Dictionary"
+
+
                 
             #material choices
             if "OIL 1" in part_numb:
@@ -383,6 +360,7 @@ class ExcelToPandas():
             elif "- ISOLATING" or "- CONDENSATE" or "- SEAL" or "- CW" or "GAS 2" or "GAS 1" or "OIL 1" or "OIL 2" not in description:
                 temp_ax = " SPECIAL ENTRY REQUIRED"
             
+            # print(temp_ax)
             ax_numbers_list.append(temp_ax)
             
         merged_export["AX Numbers"] = ax_numbers_list
@@ -592,7 +570,6 @@ class ExcelToPandas():
             elif "NB" in description:
                 size = description.split("''NB ")
                 size = size[0]      
-            
             if "#150" in description:
                 bolt_qty_list.append(flange_qty * onefifty_flange_dict[size]['bolt count'])
                 bolt_size_list.append(onefifty_flange_dict[size]['bolt size'])
