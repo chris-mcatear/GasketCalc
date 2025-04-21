@@ -66,8 +66,9 @@ def calculatefunc():
     seal_gaskets = etop.seal_gaskets()
     isolating_gaskets = etop.isolating_gaskets()
     condensate_gaskets = etop.condensate_gaskets()
+    insulating_gaskets = etop.insulating_gaskets()
 
-    merged_gaskets_master = [gas_1_gaskets, gas_2_gaskets, oil_1_gaskets, oil_2_gaskets, cw_gaskets, seal_gaskets, isolating_gaskets, condensate_gaskets]
+    merged_gaskets_master = [gas_1_gaskets, gas_2_gaskets, oil_1_gaskets, oil_2_gaskets, cw_gaskets, seal_gaskets, isolating_gaskets, condensate_gaskets, insulating_gaskets]
     final_grouping = pd.concat(merged_gaskets_master)
     return final_grouping
     

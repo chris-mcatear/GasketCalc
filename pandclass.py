@@ -125,16 +125,22 @@ class ExcelToPandas():
         return grouped_seal_gaskets
     
     
+    def insulating_gaskets(self):
+        excel_df = pd.read_excel(self.filepath)
+        insulating_gaskets = excel_df[excel_df["Filename"].str.contains("INSULATE", na=False)]
+        grouped_insulating_gaskets = insulating_gaskets.groupby(insulating_gaskets["Filename"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
+        return grouped_insulating_gaskets
+    
+    
     def isolating_gaskets(self):
         excel_df = pd.read_excel(self.filepath)
-        isolating_gaskets = excel_df[excel_df["Filename"].str.contains("INSULATE", na=False)]
+        isolating_gaskets = excel_df[excel_df["Filename"].str.contains("ISOLATING", na=False)]
         grouped_isolating_gaskets = isolating_gaskets.groupby(isolating_gaskets["Filename"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
         return grouped_isolating_gaskets
     
-    
     def condensate_gaskets(self):
         excel_df = pd.read_excel(self.filepath)
-        condensate_gaskets = excel_df[excel_df["Filename"].str.contains("ISOLATING", na=False)]
+        condensate_gaskets = excel_df[excel_df["Filename"].str.contains("CONDENSATE", na=False)]
         grouped_condensate_gaskets = condensate_gaskets.groupby(condensate_gaskets["Filename"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
         return grouped_condensate_gaskets
     
@@ -338,7 +344,7 @@ class ExcelToPandas():
             if temp_desc[0] in din_dict:
                 temp_ax += din_dict[temp_desc[0]]["DIN"]
             else: 
-                temp_ax += f"no {description[0:2]} size found in DIN Dictionary"
+                temp_ax += f"no {temp_desc[0]} size found in DIN Dictionary"
 
 
                 
