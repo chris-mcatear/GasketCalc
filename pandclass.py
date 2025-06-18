@@ -53,30 +53,31 @@ class ExcelToPandas():
         
         
     def pandasfileapprove(self):
+        excel_df = pd.read_excel(self.filepath)
         if self.filepath.lower() == "error":
             #print("File path not correctly defined")
             messagebox.askretrycancel(title="File Path Definition Error", message="File path not correctly defined.")
         else: 
-            excel_valid = [False, False, False, False]
             file_validator = ["Item", "Filename", "QTY", "Description"]
-            excel_df = pd.read_excel(self.filepath)
             if len(excel_df.columns) == len(file_validator):
                 # print(excel_df.head())
                 for i in range(len(excel_df.columns)):
+                    # print(excel_df.columns[i])
                     if excel_df.columns[i] != file_validator[i]:
-                        excel_valid[i] = False
-                        # print("File Not Valid")
-                    else: 
-                        # print("File confirmed Valid")
-                        excel_valid[i] = True
-                # print(f"Validation: {excel_valid}")
-                if excel_valid == [True, True, True, True]:
-                    return True
-                else:
-                    return False
+                        messagebox.askretrycancel(title="File Invalid", message="File Not Valid!\nIt looks like there's an issue with the order of your columns!\n\nDouble check BoM follows order of:\nItem, Filename, QTY, Description.")
+                        return False
+                # return True
+
             else:
-                # messagebox.askretrycancel(title="File Invalid", message="Chosen file is not a valid Inventor BOM Export, please try again")
+                messagebox.askretrycancel(title="File Invalid", message="File Not Valid!\nIt looks like there's too many/not enough columns.\n\nYour BOM should have 4 columns in the following order:\nItem, Filename, QTY, Description.")
                 return False
+            
+        contains_gasket = excel_df["Filename"].str.contains("gasket", case=False, na=False).any()
+        if contains_gasket:
+            return True
+        else:
+            messagebox.askretrycancel(title="File Invalid", message="File Not Valid!\nIt looks like there are no gaskets in your BOM!")
+            return False
 
 
     def oil_gaskets(self):
@@ -108,7 +109,6 @@ class ExcelToPandas():
         return grouped_gas_gaskets_1, grouped_gas_gaskets_2
     
     
-    # Cooling water is C.W. ?? 
     def water_gaskets(self):
         excel_df = pd.read_excel(self.filepath)
         cw_gaskets = excel_df[excel_df["Filename"].str.contains("- CW", na=False)]
@@ -137,6 +137,7 @@ class ExcelToPandas():
         isolating_gaskets = excel_df[excel_df["Filename"].str.contains("ISOLATING", na=False)]
         grouped_isolating_gaskets = isolating_gaskets.groupby(isolating_gaskets["Filename"]).agg({'QTY': 'sum', 'Description': '&&&'.join})
         return grouped_isolating_gaskets
+    
     
     def condensate_gaskets(self):
         excel_df = pd.read_excel(self.filepath)
@@ -558,6 +559,7 @@ class ExcelToPandas():
         
         bolt_text.grid(column=5, row=1, rowspan=8)
         b_text.grid(column=4, row=1)
+
 
     def bolt_quantity(self, merged_export):
         bolt_qty_list = []

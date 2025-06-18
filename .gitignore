@@ -2,6 +2,10 @@
 node_modules/
 .env
 bomparser.spec
+test.py
+
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

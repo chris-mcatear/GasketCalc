@@ -23,6 +23,7 @@ release_version = UpdateChecker.updatechecker()
 
 #Define window
 window = tk.Tk()
+window.iconbitmap("C:/Users/fiz/Documents/Programming/GasketCalc2025/GasketCalc/bolt.ico")
 window.title(f'Gaskets & Bolts Calculator - {current_version}')
 # window.resizable(False, False)
 window_width = 550
@@ -34,10 +35,9 @@ s_height_loc = (s_height/2)-(window_height/2)
 window.geometry("%dx%d+%d+%d" % (window_width, window_height, s_width_loc, s_height_loc))
 window.config(padx=25, pady=25)
 # window.minsize(height=500)
-# icon = tk.PhotoImage(file="bolt.ico")
-# window.iconphoto(True, icon)
 
 MATERIAL_CHOSEN = False
+
 
 def browsefunc():
     filetypes = (("Excel File", "*.xlsx"),)
@@ -59,7 +59,7 @@ def browsefunc():
 
 
 def calculatefunc():
-    """Usage: calculatefunc(input) / Will take input of file path and pass to pandas to interperetation, pandas to return details to display() function for displaying information."""  
+    """Usage: calculatefunc() / Will take input of file path and pass to pandas to interperetation, pandas to return details to display() function for displaying information."""  
     oil_1_gaskets, oil_2_gaskets = etop.oil_gaskets()
     gas_1_gaskets, gas_2_gaskets = etop.gas_gaskets()
     cw_gaskets = etop.water_gaskets()
@@ -73,7 +73,6 @@ def calculatefunc():
     return final_grouping
     
    
-    
 def export_to_excel():
     merged_export = calculatefunc()
     # print("Merged Export:")
