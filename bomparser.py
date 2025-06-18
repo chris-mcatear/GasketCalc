@@ -17,7 +17,7 @@ etop = ExcelToPandas()
 s_splitter = SpareSplitter()
 UpdateChecker = CheckforUpdate()
 
-current_version = "v1.2a"
+current_version = "v1.3a"
 release_version = UpdateChecker.updatechecker()
 
 
