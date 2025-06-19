@@ -17,13 +17,13 @@ etop = ExcelToPandas()
 s_splitter = SpareSplitter()
 UpdateChecker = CheckforUpdate()
 
-current_version = "v1.3a"
+current_version = "v1.3b"
 release_version = UpdateChecker.updatechecker()
 
 
 #Define window
 window = tk.Tk()
-window.iconbitmap("C:/Users/fiz/Documents/Programming/GasketCalc2025/GasketCalc/bolt.ico")
+# window.iconbitmap("C:/Users/fiz/Documents/Programming/GasketCalc2025/GasketCalc/bolt.ico")
 window.title(f'Gaskets & Bolts Calculator - {current_version}')
 # window.resizable(False, False)
 window_width = 550
